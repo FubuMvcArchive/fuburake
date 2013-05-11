@@ -10,8 +10,23 @@ module FubuRake
 	  end
 		
 	  compileTask.add_description "Compiles the application"
-		
+
 	  return compileTask
+	end
+  end
+  
+  class CompileTarget
+	def initialize(name, solution)
+	  @name = name
+	  @solution = solution
+	end
+	
+	def create(options)
+	  compileTask = Rake::Task.define_task @name do
+		MSBuildRunner.compile options.merge({:solutionfile => @solution})
+	  end
+		
+	  compileTask.add_description "Compiles #{@solution}"
 	end
   end
 end

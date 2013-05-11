@@ -19,10 +19,23 @@ module FubuRake
 		:fubudocs_enabled, 
 		:options, 
 		:defaults,
-		:ci_steps
+		:ci_steps,
+		:precompile,
+		:integration_test,
+		:compilations
+		
+		
+		
+	def compile_step(name, solution)
+		@compilations ||= []
+	
+		@compilations << CompileTarget.new(name, solution)
+	end
   end
   
   class Solution
+	attr_accessor :options, :compilemode
+  
     def initialize(&block)
 	  tasks = SolutionTasks.new
 	  block.call(tasks)
@@ -51,9 +64,13 @@ module FubuRake
 		:build_revision => build_revision,
 		:source => 'src'}.merge(options)
 
+	  @compilemode = @options[:compilemode]
+		
 	  tasks.clean ||= []
 	  tasks.defaults ||= []
 	  tasks.ci_steps ||= []
+	  tasks.precompile ||= []
+	  
 
 	  enable_docs tasks
 	  FubuRake::AssemblyInfo.create tasks, @options
@@ -63,14 +80,20 @@ module FubuRake
 	  FubuRake::NUnit.create_task tasks, @options
 
 	  add_dependency :compile, [:clean, :version, 'ripple:restore', 'docs:bottle']
+
+	  Rake::Task[:compile].enhance(tasks.precompile)
 	  add_dependency :unit_test, :compile
 	  add_dependency :default, [:compile, :unit_test]
 	  add_dependency :default, :unit_test
 	  Rake::Task[:default].enhance tasks.defaults
 	  Rake::Task[:ci].enhance tasks.ci_steps
 	  add_dependency :ci, tasks.ci_steps
-	  
 	  add_dependency :ci, ["ripple:history", "ripple:package"]
+
+	  tasks.compilations ||= []
+	  tasks.compilations.each do |c|
+		c.create @options
+	  end
 	end
 	
 	def add_dependency(from, to)

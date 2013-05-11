@@ -20,8 +20,16 @@ module FubuRake
 		nunitTask.enhance [:compile]
 		nunitTask.add_description "Runs unit tests"
 	  end
-	  
-	  return nunitTask
+
+	  if tasks.integration_test != nil
+	    integrationTask = Rake::Task.define_task :integration_test do
+		  runner = NUnitRunner.new options
+		  runner.executeTests tasks.integration_test
+		end
+		
+		integrationTask.enhance [:compile]
+		integrationTask.add_description "integration tests: #{tasks.integration_test.join(', ')}"
+	  end
 	end
   end
 end

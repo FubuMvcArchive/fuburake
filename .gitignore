@@ -25,3 +25,4 @@ src/*/repositories.config
 results
 *.DotSettings.user
 logs
+pkg
