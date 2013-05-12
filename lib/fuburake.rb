@@ -3,10 +3,11 @@ include FileTest
 
 require_relative 'nunit'
 require_relative 'msbuild'
-require_relative'nuget'
+require_relative 'nuget'
 require_relative 'platform'
 require_relative 'ripple'
 require_relative 'assembly_info'
+require_relative 'bottles'
 
 load "VERSION.txt"
 
@@ -31,10 +32,16 @@ module FubuRake
 	
 		@compilations << CompileTarget.new(name, solution)
 	end
+	
+	def assembly_bottle(project)
+		@compilations ||= []
+	
+		@compilations << FubuRake::AssemblyBottle.new(project)
+	end
   end
   
   class Solution
-	attr_accessor :options, :compilemode
+	attr_accessor :options, :compilemode, :build_number
   
     def initialize(&block)
 	  tasks = SolutionTasks.new
@@ -50,7 +57,7 @@ module FubuRake
 	  tc_build_number = ENV["BUILD_NUMBER"]
 	  build_revision = tc_build_number || Time.new.strftime('5%H%M')
 	  asm_version = BUILD_VERSION + ".0"
-	  build_number = "#{BUILD_VERSION}.#{build_revision}"
+	  @build_number = "#{BUILD_VERSION}.#{build_revision}"
 	  
 	  @options = {
 		:compilemode => ENV['config'].nil? ? "Debug" : ENV['config'],
@@ -58,7 +65,7 @@ module FubuRake
 		:platform => 'x86',
 		:unit_test_list_file => 'TESTS.txt',
 		:unit_test_projects => [],
-		:build_number => build_number,
+		:build_number => @build_number,
 		:asm_version => asm_version,
 		:tc_build_number => tc_build_number,
 		:build_revision => build_revision,

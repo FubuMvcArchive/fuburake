@@ -44,11 +44,14 @@ task :local_gem => [:create_gem] do
 end
 
 spec = Gem::Specification.new do |s|
-  s.platform    = Gem::Platform::RUBY
   s.name        = 'fuburake'
   s.version     = solution.options[:build_number]
   s.files += Dir['lib/*.rb']
   s.bindir = 'bin'
+  
+  #s.add_runtime_dependency "ripple-cli",["~> 2.0.0"]
+  #s.add_runtime_dependency "fubudocs",[">= 0.5.0"]
+  #s.add_runtime_dependency "bottles",["~> 1.0.0"]
   
   s.summary     = 'Rake tasks for fubu related projects'
   s.description = 'Rake helpers for FubuDocs, ripple, NUnit, and cross platform fubu project development'
