@@ -14,7 +14,7 @@ solution = FubuRake::Solution.new do |sln|
 	sln.ripple_enabled = true
 	sln.fubudocs_enabled = false
 	
-	sln.ci_steps = [:create_gem]
+	sln.ci_steps = [:create_gem, :archive_gem]
 	
 	sln.compile_step :other_compile, 'src/FubuRake.sln'
 	
@@ -26,7 +26,11 @@ task :fake do
 	puts "I'm the FAKE task running!"
 end
 
+desc "Archives the gem in CI"
+task :archive_gem => [:create_gem] do
+	copyOutputFiles "pkg", "*.gem", "artifacts"
 
+end
 
 desc "Creates the gem for fubu.exe"
 task :create_gem do
