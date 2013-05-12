@@ -12,7 +12,7 @@ solution = FubuRake::Solution.new do |sln|
 	}
 	
 	sln.ripple_enabled = true
-	sln.fubudocs_enabled = true
+	sln.fubudocs_enabled = false
 	
 	sln.ci_steps = [:create_gem]
 	
