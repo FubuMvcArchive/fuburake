@@ -4,7 +4,7 @@
   <Name>FubuRake</Name>
   <GitHubPage>http://github.com/DarthFubuMVC/FubuRake</GitHubPage>
   <UserGroupUrl>https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel</UserGroupUrl>
-  <BuildServerUrl>http://build.fubu-project.org/project.html?projectId=[CHANGEME]&amp;tab=projectOverview</BuildServerUrl>
+  <BuildServerUrl>http://build.fubu-project.org/project.html?projectId=project56&amp;tab=projectOverview</BuildServerUrl>
   <BottleName>FubuRake.Docs</BottleName>
   <Nugets />
   <Url>fuburake</Url>

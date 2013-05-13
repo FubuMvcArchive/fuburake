@@ -1,0 +1,93 @@
+﻿<!--Title: Options-->
+
+
+
+
+Most of the time you'll be able to use the fuburake defaults as is, but even so, it's always good to know what the defaults are and how you can change them.
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>:compilemode</td>
+        <td>The .Net compilation mode ("Debug" or "Release" usually)</td>
+        <td>
+          "Debug" unless the "Config" argument given from the command line like <code>rake Config=Release</code>
+        </td>
+      </tr>
+      <tr>
+        <td>:clrversion</td>
+        <td>The CLR version used to locate the MSBuild executable for compilation</td>
+        <td>v4.0.30319</td>
+      </tr>
+      <tr>
+        <td>:platform</td>
+        <td>Platform for executing NUnit tests and compilation</td>
+        <td>x86</td>
+      </tr>
+      <tr>
+        <td>:unit_test_list_file</td>
+        <td>If this is set and :unit_test_projects is not, this value will be used to generate the :unit_test task</td>
+        <td>TESTS.txt</td>
+      </tr>
+      <tr>
+        <td>:unit_test_projects</td>
+        <td>Array of projects by name to run in the :unit_test task</td>
+        <td>nil</td>
+      </tr>
+      <tr>
+        <td>:build_number</td>
+        <td>The complete semantic version number in 4 digit form (#.#.#.#)</td>
+        <td>
+          The semantic version is imported from VERSION.txt and the last number is either given by <code>rake BUILD_NUMBER=###</code> for CI builds or uses the current time for local builds
+        </td>
+      </tr>
+      <tr>
+        <td>:asm_version</td>
+        <td>The semantic version of the assembly</td>
+        <td>See :build_number</td>
+      </tr>
+      <tr>
+        <td>:tc_build_number</td>
+        <td>The sequential CI build number</td>
+        <td>
+          In CI builds this is passed into rake as a command line argument
+        </td>
+      </tr>
+      <tr>
+        <td>:build_revision</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>:source</td>
+        <td>The relative path of the folder containing the source code</td>
+        <td>src</td>
+      </tr>
+    </tbody>
+  </table>
+  
+For a little more context, here's how the default options are determined:
+
+<Snippet name="fuburake-options" />
+  
+
+
+
+<Section title="Overriding Options" id="overriding">
+  You can override the options by defining the options hash in the <code>FubuRake::Solution.new</code> closure like so:
+
+  <Snippet name="override-options" />
+</Section>
+
+<Section title="Using Options" id="using">
+You can reuse the options in other parts of your rake script just by keeping a reference to the <code>FubuRake::Solution</code> object:  
+  
+  <Snippet name="using-options-later" />
+</Section>

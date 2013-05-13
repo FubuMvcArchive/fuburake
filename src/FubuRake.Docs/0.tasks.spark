@@ -1,0 +1,59 @@
+﻿<!--Title: Tasks-->
+
+<Section title="Sample" id="sample">
+  Assuming that you use the !{this.LinkToTopic('layout', 'standard Fubu project layout')} for your code repository, you can take advantage of the fuburake gem to create a fully functional build script with [Rake](http://rake.rubyforge.org/) like so:
+
+  <Snippet name="simple-rake" />
+
+  Behind the scenes, this simple invocation creates several rake tasks and creates the logical dependencies between tasks.  Taking the snippet above as an example, if we run <code>rake -T</code> to query the available tasks, we get:
+
+  <pre>
+    ci                     # Target used for the CI server
+    clean                  # Prepares the working directory for a new build
+    compile                # Compiles the application
+    default                # **Default**, compiles and runs tests
+    rake docs:bottle       # 'Bottles' up a single project in the solution with...
+    rake docs:run          # Tries to run a documentation project hosted in Fub...
+    rake docs:run_chrome   # Tries to run the documentation projects in this so...
+    rake docs:run_firefox  # Tries to run the documentation projects in this so...
+    rake docs:snippets     # Gathers up code snippets from the solution into th...
+    ripple:history         # creates a history file for nuget dependencies
+    ripple:package         # packages the nuget files from the nuspec files in p...
+    ripple:restore         # Restores nuget package files and updates all floati...
+    ripple:update          # Updates nuget package files to the latest
+    unit_test              # Runs unit tests
+    version                # Update the version information for the build
+  </pre>
+
+  If we run <code>rake --prereqs</code> to see the dependencies between tasks we get:
+
+  <pre>
+    rake ci
+    default
+    create_gem
+    archive_gem
+    ripple:history
+    ripple:package
+    rake clean
+    rake compile
+    clean
+    version
+    ripple:restore
+    docs:bottle
+    rake default
+    compile
+    unit_test
+    rake docs:bottle
+    rake docs:run
+    rake docs:run_chrome
+    rake docs:run_firefox
+    rake docs:snippets
+    rake ripple:history
+    rake ripple:package
+    rake ripple:restore
+    rake ripple:update
+    rake unit_test
+    compile
+    rake version
+  </pre>
+</Section>

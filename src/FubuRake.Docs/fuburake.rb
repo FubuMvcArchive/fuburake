@@ -54,12 +54,13 @@ module FubuRake
 	  options = tasks.options
 	  options ||= {}
 	  
+	  # SAMPLE: fuburake-options
 	  tc_build_number = ENV["BUILD_NUMBER"]
 	  build_revision = tc_build_number || Time.new.strftime('5%H%M')
 	  asm_version = BUILD_VERSION + ".0"
 	  @build_number = "#{BUILD_VERSION}.#{build_revision}"
 	  
-	  # SAMPLE: fuburake-options
+	  
 	  @options = {
 		:compilemode => ENV['config'].nil? ? "Debug" : ENV['config'],
 		:clrversion => 'v4.0.30319',

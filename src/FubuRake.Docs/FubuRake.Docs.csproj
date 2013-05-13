@@ -59,4 +59,18 @@
   <ItemGroup>
     <EmbeddedResource Include="pak-Config.zip" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="0.tasks.spark" />
+    <None Include="1.layout.spark" />
+    <None Include="2.options.spark" />
+    <None Include="3.compilation.spark" />
+    <None Include="4.clean.spark" />
+    <None Include="5.version.spark" />
+    <None Include="6.nunit.spark" />
+    <None Include="7.ripple.spark" />
+    <None Include="8.fubudocs.spark" />
+    <None Include="9.custom.spark" />
+    <None Include="fuburake.rb" />
+    <None Include="rakefile.rb" />
+  </ItemGroup>
 </Project>
