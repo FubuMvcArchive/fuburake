@@ -1,6 +1,41 @@
 ﻿<!--Title: FubuDocs Integration-->
 
-<markdown>
+Enabling <ProjectLink name="FubuDocs"/> integration is done by just marking the <code>fubudocs_enabled</code> accessor as true like this:
+<Snippet name="enable-fubudocs" />
 
+FubuDocs integration includes these tasks:
 
-</markdown>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>docs:bottle</td>
+      <td>"Bottles" up the content of any documentation projects.  This task will also create nuspec documents for the documentation projects if they do not already exist.  Runs before the <code>:compile</code> task.
+    </td>
+    </tr>
+    <tr>
+      <td>docs:run</td>
+      <td>Equivalent to <code>fubudocs run -o</code>
+    </td>
+    </tr>
+    <tr>
+      <td>docs:run_chrome</td>
+      <td>Equivalent to <code>fubudocs run --watched -b Chrome</code>
+    </td>
+    </tr>
+    <tr>
+      <td>docs:run_firefox</td>
+      <td>Equivalent to <code>fubudocs run --watched</code>
+    </td>
+    </tr>
+    <tr>
+      <td>docs:snippets</td>
+      <td>Rebuilds the code snippet files for a documentation project</td>
+    </tr>
+  </tbody>
+</table>

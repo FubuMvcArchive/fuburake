@@ -1,6 +1,38 @@
 ﻿<!--Title: Ripple Integration-->
 
-<markdown>
+Integrating <ProjectLink name="Ripple"/> via FubuRake is purely declarative, just set the <code>enable_ripple</code> accessor to true as in the following code:
 
+<Snippet name="enable-ripple" />
 
-</markdown>
+By enabling ripple, you add these tasks to your rake script:
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ripple:history</td>
+      <td>Generates a file named _dependency-history.txt_ in the _artifacts_ directory that lists all the Nuget dependencies and their versions for this build.  This task is part of the <code>:ci</code> task.
+    </td>
+    </tr>
+    <tr>
+      <td>ripple:package</td>
+      <td>Generates *.nupkg nuget files for all the *.nuspec files under _/packaging/nuget_ and places them in _artifacts_.  This task is part of the <code>:ci</code> task.
+    </td>
+    </tr>
+    <tr>
+      <td>ripple:restore</td>
+      <td>Fetches any and all missing nuget dependencies from all the feeds designated in _ripple.config_.  Dependency to <code>:compile</code>
+    </td>
+    </tr>
+    <tr>
+      <td>ripple:update</td>
+      <td>Equivalent to <code>ripple restore --force</code>.  Runs as part of the <code>:ci</code> task.
+    </td>
+    </tr>
+  </tbody>
+</table>

@@ -2,7 +2,7 @@
 
 
 <markdown>
-FubuRake is a standard Ruby library to quickly stand up a fully functional rake script based on Fubu project standards. FubuRake also provides standard integration with <ProjectLink name="Ripple"/> for package management and <ProjectLink name="FubuDocs"/> for documentation generation. 
+FubuRake is a standard Ruby library to quickly stand up a fully functional, cross platform rake script for a .Net codebase based on Fubu project standards. FubuRake also provides standard integration with <ProjectLink name="Ripple"/> for package management and <ProjectLink name="FubuDocs"/> for documentation generation. 
 </markdown>
 
 <a class="btn btn-info" href="http://github.com/DarthFubuMVC/FubuRake">GitHub</a>

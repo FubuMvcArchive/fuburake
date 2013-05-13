@@ -1,6 +1,81 @@
 ﻿<!--Title: Assembly Versioning-->
 
+Fubu projects generally write out a <code>CommonAssemblyInfo.cs</code> file into the <code>src</code> directory as a precursor to compilation in their build scripts to generate shared version and copyright information across assemblies.  The various *.csproj files should link to this shared file to embed version information into assemblies.
+
+A CommonAssemblyInfo.cs file typically looks like this:
+<Snippet name="CommonAssemblyInfo" />
+
 <markdown>
 
+  <Section title="Configuration" id="configuration">
+You define the assembly version information by passing a hash of options into the <code>assembly_info</code> method like the following:
+<Snippet name="version" />
+
+You will generally only need to explicitly define the product name and copyright, but other options listed in the next section are overridable as well.
+  </Section>
+  
 
 </markdown>
+
+
+<Section title="Options" id="options">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>.Net Assembly Attribute</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>:trademark</td>
+        <td>[assembly: AssemblyTrademark]</td>
+        <td>The git commit SHA</td>
+      </tr>
+
+      <tr>
+        <td>:product_name</td>
+        <td>[assembly: AssemblyProduct]</td>
+        <td>None</td>
+      </tr>
+
+      <tr>
+        <td>:description</td>
+        <td>[assembly: AssemblyDescription]</td>
+        <td>
+          The full build number as described in <TopicLink name="options"/>
+        </td>
+      </tr>
+
+      <tr>
+        <td>:version</td>
+        <td>[assembly: AssemblyVersion]</td>
+        <td>
+          The semantic version as described in <TopicLink name="options"/>
+        </td>
+      </tr>
+
+      <tr>
+        <td>:file_version</td>
+        <td>[assembly: AssemblyFileVersion]</td>
+        <td>The full build number</td>
+      </tr>
+
+
+      <tr>
+        <td>:informational_version</td>
+        <td>[assembly: AssemblyInformationalVersion]</td>
+        <td>The semantic version</td>
+      </tr>
+
+      <tr>
+        <td>:output_file</td>
+        <td></td>
+        <td>src/CommonAssemblyInfo.cs</td>
+      </tr>
+    </tbody>
+  </table>
+</Section>

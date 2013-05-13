@@ -1,6 +1,63 @@
 ﻿<!--Title: Compilation-->
 
+
+
 <markdown>
-
-
+FubuRake supports compilation with both MSBuild on Windows and xBuild from Mono with Linux. FubuRake's compilation support will detect the platform for you and switch the compilation strategy accordingly.
 </markdown>
+
+<Section title="The Default :compile Task" id="default">
+Setting up the <code>:compile</code> task is generally declarative.  There are other options listed in the next section, but for the most part you only need to set the <code>:solutionfile</code> attribute as in the code below:
+  
+  <Snippet name="default-compile" />  
+  
+  
+  
+</Section>
+
+<Section title="Compilation Options" id="options">
+Typically you will just use the FubuRake options and only specify the :solutionfile, but it's still good to know what the levers are that you could pull to customize the compilation.
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>:compilemode</td>
+        <td>The compilation mode. Uses the :compilemode from the FubuRake::Solution.options by default, but can be overriden.</td>
+      </tr>
+      <tr>
+        <td>:solutionfile</td>
+        <td>The path to the *.sln or *.csproj file to compile</td>
+      </tr>
+      <tr>
+        <td>:clrversion</td>
+        <td>The CLR version of MSBuild or xBuild.  Uses :clrversion from the FubuRake::Solution.options by default, but can be overriden</td>
+      </tr>
+    </tbody>
+  
+  </table>
+</Section>
+
+<Section title="Other Compilation Steps" id="other">
+If you need additional compilation tasks beyond the default <code>:default</code> task, you can use the <code>:compile_step</code> method to generate additional compilation tasks using the same options as the rest of the solution like so:
+  <Snippet name="compile-step"/>
+The first argument (<code>:compile_console</code>) is the name of the task and the second argument is the relative path to either a *.csproj or *.sln file.
+</Section>
+
+<Section title="Adding Prerequisite Tasks" id="prereqs">
+If you need to chain other custom tasks as dependencies to the <code>:default</code> task, use the <code>precompile</code> property to add an array of task names as in the following example:
+  <Snippet name="precompile" />
+</Section>
+
+<Section title="MSBuildRunner">
+
+
+</Section>
+  
+  
+  

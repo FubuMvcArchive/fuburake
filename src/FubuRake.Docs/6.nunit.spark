@@ -1,6 +1,26 @@
 ﻿<!--Title: NUnit Tests-->
 
-<markdown>
 
+  <Section title="List Testing Projects in TESTS.txt" id="teststxt">
+    This option is the default and requires no explicit configuratino.  As a way to make project and solution generation easier, we moved the list of testing projects to a TESTS.txt file in the root directory.  That file looks like this example from [FubuMVC.ViewEngines](https://github.com/DarthFubuMVC/FubuMVC.ViewEngines):
 
-</markdown>
+<pre>
+  FubuMVC.Core.View.Testing
+  FubuMVC.Razor.Tests
+  FubuMVC.Spark.Tests
+  ViewEngineIntegrationTesting
+</pre>
+
+  </Section>
+
+  <Section title="Explicitly Define Testing Projects" id="explicit">
+If you don't want to use the TESTS.txt file and prefer the testing projects be explicitly defined in your rake file, just set the <code>:unit_test_projects</code> option like this:
+
+<Snippet name="explicit-tests"/>
+  </Section>
+
+  <Section title="Integration Testing" id="integration">
+If you want a specific task for integration testing separate from unit tests for the "fast build/slow build" segregation, there's a helper to define an <code>:integration_test</code> task like this:
+
+<Snippet name="integration-test"  />
+  </Section>
