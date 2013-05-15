@@ -12,7 +12,7 @@ solution = FubuRake::Solution.new do |sln|
 	}
 	
 	sln.ripple_enabled = true
-	sln.fubudocs_enabled = true
+	#sln.fubudocs_enabled = true
 	
 	sln.ci_steps = [:create_gem, :archive_gem]
 	
@@ -52,6 +52,8 @@ spec = Gem::Specification.new do |s|
   s.version     = solution.options[:build_number]
   s.files += Dir['lib/*.rb']
   s.bindir = 'bin'
+  
+  s.license = 'Apache 2'
   
   #s.add_runtime_dependency "ripple-cli",["~> 2.0.0"]
   #s.add_runtime_dependency "fubudocs",[">= 0.5.0"]
