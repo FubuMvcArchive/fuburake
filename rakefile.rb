@@ -12,7 +12,7 @@ solution = FubuRake::Solution.new do |sln|
 	}
 	
 	sln.ripple_enabled = true
-	#sln.fubudocs_enabled = true
+	sln.fubudocs_enabled = true
 	
 	sln.ci_steps = [:create_gem, :archive_gem]
 	
@@ -55,9 +55,9 @@ spec = Gem::Specification.new do |s|
   
   s.license = 'Apache 2'
   
-  #s.add_runtime_dependency "ripple-cli",["~> 2.0.0"]
-  #s.add_runtime_dependency "fubudocs",[">= 0.5.0"]
-  #s.add_runtime_dependency "bottles",["~> 1.0.0"]
+  s.add_runtime_dependency "ripple-cli",["~> 2.0"]
+  s.add_runtime_dependency "fubudocs",[">= 0.5"]
+  s.add_runtime_dependency "bottles",["~> 1.0"]
   
   s.summary     = 'Rake tasks for fubu related projects'
   s.description = 'Rake helpers for FubuDocs, ripple, NUnit, and cross platform fubu project development'
