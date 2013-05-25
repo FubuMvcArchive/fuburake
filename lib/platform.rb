@@ -4,10 +4,9 @@ module Platform
     !RUBY_PLATFORM.match("linux|darwin").nil?
   end
 
-  def self.runtime(cmd)
+  def self.runtime(cmd, runtime)
     command = cmd
     if self.is_nix
-      runtime = (CLR_TOOLS_VERSION || "v4.0.30319")
       command = "mono --runtime=#{runtime} #{cmd}"
     end
     command

@@ -42,6 +42,7 @@ class NUnitRunner
 		@resultsDir = paths.fetch(:results, 'results')
 		@compilePlatform = paths.fetch(:platform, 'x86')
 		@compileTarget = paths.fetch(:compilemode, 'debug')
+		@clrversion = paths.fetch(:clrversion,  'v4.0.30319')
 		@nunitExe = Nuget.tool("NUnit", "nunit-console#{(@compilePlatform.empty? ? '' : "-#{@compilePlatform}")}.exe") + Platform.switch("nothread")
 	end
 	
@@ -50,7 +51,7 @@ class NUnitRunner
 		
 		assemblies.each do |assem|
 			file = File.expand_path("#{@sourceDir}/#{assem}/bin/#{@compileTarget}/#{assem}.dll")
-			sh Platform.runtime("#{@nunitExe} -xml=#{@resultsDir}/#{assem}-TestResults.xml \"#{file}\"")
+			sh Platform.runtime("#{@nunitExe} -xml=#{@resultsDir}/#{assem}-TestResults.xml \"#{file}\"", @clrversion)
 		end
 	end
 	
