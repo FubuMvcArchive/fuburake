@@ -46,11 +46,7 @@ module FubuRake
     def initialize(&block)
 	  tasks = SolutionTasks.new
 	  block.call(tasks)
-	  
-	  if Platform.is_nix
-		tasks.fubudocs_enabled = false
-	  end
-	  
+
 	  @defaultTask = create_task(:default, "**Default**, compiles and runs tests")
 	  @ciTask = create_task(:ci,  "Target used for the CI server")
 	  @ciTask.enhance [:default]
@@ -151,7 +147,15 @@ module FubuRake
 
 	def enable_docs(tasks)
 	  if tasks.fubudocs_enabled
-		require_relative 'fubudocs'
+		if Platform.is_nix
+			Dir.glob('**/*.Docs.csproj').each do |f|
+				tasks.assembly_bottle File.basename(f, ".csproj")
+			end
+		else
+			require_relative 'fubudocs'
+		end
+	  
+		
 	  end
 	end
   end
