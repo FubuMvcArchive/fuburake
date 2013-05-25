@@ -47,6 +47,10 @@ module FubuRake
 	  tasks = SolutionTasks.new
 	  block.call(tasks)
 	  
+	  if Platform.is_nix
+		tasks.fubudocs_enabled = false
+	  end
+	  
 	  @defaultTask = create_task(:default, "**Default**, compiles and runs tests")
 	  @ciTask = create_task(:ci,  "Target used for the CI server")
 	  @ciTask.enhance [:default]
