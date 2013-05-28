@@ -7,7 +7,7 @@ module FubuRake
 		  runner = NUnitRunner.new options
 		  runner.executeTests options[:unit_test_projects]
 		end
-	  elsif options[:unit_test_list_file] != nil
+	  elsif options[:unit_test_list_file] != nil and File::exists?(options[:unit_test_list_file])
 		file = options[:unit_test_list_file]
 	  
 		nunitTask = Rake::Task.define_task :unit_test do
