@@ -86,14 +86,19 @@ module FubuRake
 	  FubuRake::Ripple.create tasks, @options
 	  make_clean tasks
 	  FubuRake::MSBuild.create_task tasks, @options
-	  FubuRake::NUnit.create_task tasks, @options
 
 	  add_dependency :compile, [:clean, :version, 'ripple:restore', 'docs:bottle']
+	  add_dependency :default, :compile
 
 	  Rake::Task[:compile].enhance(tasks.precompile)
-	  add_dependency :unit_test, :compile
-	  add_dependency :default, [:compile, :unit_test]
-	  add_dependency :default, :unit_test
+	  
+	  #detect if there are any test projects
+	  if File::exists?(@options[:unit_test_list_file]) or @options[:unit_test_projects].length > 0 
+	    FubuRake::NUnit.create_task tasks, @options
+	    add_dependency :unit_test, :compile
+	    add_dependency :default, :unit_test
+	  end
+
 	  Rake::Task[:default].enhance tasks.defaults
 	  Rake::Task[:ci].enhance tasks.ci_steps
 	  add_dependency :ci, tasks.ci_steps
