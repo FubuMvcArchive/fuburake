@@ -126,3 +126,10 @@ task :ilrepack do
     #something here...
 end
 # ENDSAMPLE
+
+# SAMPLE: bottle-task
+@solution = FubuRake::Solution.new do |sln|
+	sln.assembly_bottle 'Project.Bottle1'
+	sln.assembly_bottle 'Project.Bottle2'
+end
+# ENDSAMPLE
