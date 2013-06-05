@@ -71,6 +71,7 @@
     <None Include="7.ripple.spark" />
     <None Include="8.fubudocs.spark" />
     <None Include="9.custom.spark" />
+    <None Include="10.bottles.spark" />
     <None Include="fuburake.rb" />
     <None Include="rakefile.rb" />
   </ItemGroup>
