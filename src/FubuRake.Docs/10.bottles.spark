@@ -1,5 +1,5 @@
 ﻿<!--Title: Bottles Task-->
 
-Assembly bottles need need to be packaged up for use by projects that consume them.
+Assembly bottles need to be packaged for use by projects that consume them.
 
 <Snippet name="bottle-task" />
