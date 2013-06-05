@@ -9,7 +9,8 @@ module FubuRake
 
 	  name = "bottle_#{cleaned_name}"
 	  task = Rake::Task.define_task name do
-		sh "bottles assembly-pak src/#{@project} -p #{@project}.csproj"
+		sh "bottles assembly-pak #{options[:source]}/#{@project} -p #{@project}.csproj"
+
 	  end
 		
 	  task.add_description "Assembly bottle packing for #{@project}"
