@@ -25,7 +25,16 @@ module FubuRake
 		:integration_test,
 		:compilations
 		
-		
+	def initialize
+	    @options = {}
+	
+		solutions = Dir.glob('**/*.sln')
+		if solutions.count == 1
+		  solutionfile = solutions[0]
+
+		  @compile = {:solutionfile => solutionfile}
+		end
+	end	
 		
 	def compile_step(name, solution)
 		@compilations ||= []
