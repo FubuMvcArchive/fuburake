@@ -8,8 +8,8 @@ module FubuRake
 	  compileTask = Rake::Task.define_task :compile do
 		MSBuildRunner.compile options.merge(tasks.compile)
 	  end
-		
-	  compileTask.add_description "Compiles the application"
+
+	  compileTask.add_description "Compiles the solution #{tasks.compile[:solutionfile]}"
 
 	  return compileTask
 	end
