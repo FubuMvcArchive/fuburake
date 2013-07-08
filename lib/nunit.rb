@@ -55,11 +55,7 @@ class NUnitRunner
 		end
 	end
 	
-	def executeTestsInFile(file)
-	  if !File.exist?(file)
-		throw "File #{file} does not exist"
-	  end
-	  
+	def readFromFile(file)
 	  tests = Array.new
 
 	  file = File.new(file, "r")
@@ -69,6 +65,16 @@ class NUnitRunner
 		tests.push(test)
 	  end
 	  file.close
+	  
+	  return tests
+	end
+	
+	def executeTestsInFile(file)
+	  if !File.exist?(file)
+		throw "File #{file} does not exist"
+	  end
+	  
+	  tests = readFromFile(file)
 	  
 	  if (!tests.empty?)
 	    executeTests tests
