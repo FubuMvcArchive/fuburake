@@ -2,23 +2,27 @@ module FubuRake
   class NUnit
     def self.create_task(tasks, options)
 	  nunitTask = nil
+	  
+	  tests = Array.new
+	  
 	  if options[:unit_test_projects].any?
-		nunitTask = Rake::Task.define_task :unit_test do
-		  runner = NUnitRunner.new options
-		  runner.executeTests options[:unit_test_projects]
-		end
+		tests = options[:unit_test_projects]
 	  elsif options[:unit_test_list_file] != nil and File::exists?(options[:unit_test_list_file])
 		file = options[:unit_test_list_file]
+		
+		tests = NUnitRunner.readFromFile(file)
 	  
-		nunitTask = Rake::Task.define_task :unit_test do
-		  runner = NUnitRunner.new options
-		  runner.executeTestsInFile file
-		end
+		
 	  end
 	  
-	  if nunitTask != nil
+	  if !tests.empty?
+		nunitTask = Rake::Task.define_task :unit_test do
+		  runner = NUnitRunner.new options
+		  runner.executeTests tests
+		end
+	  
 		nunitTask.enhance [:compile]
-		nunitTask.add_description "Runs unit tests"
+		nunitTask.add_description "Runs unit tests for " + tests.join(', ')
 	  end
 
 	  if tasks.integration_test != nil
@@ -55,7 +59,7 @@ class NUnitRunner
 		end
 	end
 	
-	def readFromFile(file)
+	def self.readFromFile(file)
 	  tests = Array.new
 
 	  file = File.new(file, "r")
