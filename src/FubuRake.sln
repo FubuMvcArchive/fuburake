@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuRakeTarget.Testing", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FubuRake.Docs", "FubuRake.Docs\FubuRake.Docs.csproj", "{E2613A16-D60E-489C-A1F4-C59EDB94D09F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Other.Tests", "Other.Tests\Other.Tests.csproj", "{29519B6F-8491-4214-822F-768D81BDBA3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{E2613A16-D60E-489C-A1F4-C59EDB94D09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2613A16-D60E-489C-A1F4-C59EDB94D09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2613A16-D60E-489C-A1F4-C59EDB94D09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29519B6F-8491-4214-822F-768D81BDBA3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29519B6F-8491-4214-822F-768D81BDBA3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29519B6F-8491-4214-822F-768D81BDBA3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29519B6F-8491-4214-822F-768D81BDBA3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

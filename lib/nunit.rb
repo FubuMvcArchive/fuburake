@@ -12,6 +12,17 @@ module FubuRake
 		
 		tests = NUnitRunner.readFromFile(file)
 	  
+	  else
+	    # just find testing projects
+		Dir.glob('**/*.Testing.csproj').each do |f|
+		   test = File.basename(f, ".csproj")
+		   tests.push test
+		end
+		
+		Dir.glob('**/*.Tests.csproj').each do |f|
+		   test = File.basename(f, ".csproj")
+		   tests.push test
+		end
 		
 	  end
 	  
