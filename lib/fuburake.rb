@@ -23,10 +23,12 @@ module FubuRake
 		:ci_steps,
 		:precompile,
 		:integration_test,
-		:compilations
+		:compilations,
+		:bottles
 		
 	def initialize
 	    @options = {}
+		@bottles = []
 	
 		solutions = Dir.glob('**/*.sln')
 		if solutions.count == 1
@@ -43,9 +45,9 @@ module FubuRake
 	end
 	
 	def assembly_bottle(project)
-		@compilations ||= []
+		@bottles ||= []
 	
-		@compilations << FubuRake::AssemblyBottle.new(project)
+		@bottles << FubuRake::AssemblyBottle.new(project)
 	end
   end
   
@@ -111,6 +113,28 @@ module FubuRake
 	  tasks.compilations ||= []
 	  tasks.compilations.each do |c|
 		c.create @options
+	  end
+	  
+	  if tasks.bottles.empty?
+		Dir.glob('**/.package-manifest').each do |f|
+		   dir = File.dirname(f)
+		   project = dir.split('/').last
+		   puts "Found #{f}"
+		   if project.index('.Docs') == nil
+		     proj_file = "#{dir}/#{project}.csproj"
+		     puts "Looking for #{proj_file}"
+			 if File.exists?(proj_file)
+		       tasks.bottles << FubuRake::AssemblyBottle.new(project)
+		     end
+		   end
+
+		end
+	  end
+	  
+	  if !tasks.bottles.empty?
+		tasks.bottles.each do |c|
+		  c.create @options
+		end
 	  end
 	end
 	
