@@ -192,6 +192,45 @@ module FubuRake
 	  end
 	end
   end
+  
+  class MvcApp
+	def initialize(options)
+	  cleaned_name = options[:name].gsub('.', '_').downcase
+	  run_args = "--directory #{options[:directory]}"
+	  
+	  if options.has_key?(:application)
+	    run_args += " --application #{options[:application]}
+	  end
+	  
+	  if options.has_key?(:build)
+	    run_args += " --build #{options[:build]}"
+	  end
+
+	  task = Rake::Task.define_task "#{cleaned_name}:alias" do
+		sh "bottles alias #{cleaned_name} #{options[:directory]}"
+	  end
+	  task.add_description "Add the alias for #{options[:directory]}"
+	  Rake::Task[:default].enhance ["#{cleaned_name}:alias"]
+	  
+	  
+	  to_task "#{cleaned_name}:restart", "restart #{cleaned_name}", "touch the web.config file to force ASP.Net hosting to recycle"
+	  to_task "#{cleaned_name}:run", "run #{run_args} --open", "run the application with Katana hosting"
+	  to_task "#{cleaned_name}:firefox", "run #{run_args} --browser Firefox --watched", "run the application with Katana hosting and 'watch' the application w/ Firefox"
+	  to_task "#{cleaned_name}:chrome", "run #{run_args} --browser Chrome --watched", "run the application with Katana hosting and 'watch' the application w/ Chrome"
+	  
+	end
+	
+	def to_task(name, args, description)
+	  task = Rake::Task.define_task name do
+		sh "fubu #{args}"
+	  end
+		
+	  task.add_description description
+	  return task
+	end
+  end
+  
+  
 end
 
 
