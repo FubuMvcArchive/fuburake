@@ -123,10 +123,8 @@ module FubuRake
 		Dir.glob('**/.package-manifest').each do |f|
 		   dir = File.dirname(f)
 		   project = dir.split('/').last
-		   puts "Found #{f}"
 		   if project.index('.Docs') == nil
 		     proj_file = "#{dir}/#{project}.csproj"
-		     puts "Looking for #{proj_file}"
 			 if File.exists?(proj_file)
 		       tasks.bottles << FubuRake::AssemblyBottle.new(project)
 		     end

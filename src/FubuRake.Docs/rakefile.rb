@@ -126,3 +126,21 @@ task :ilrepack do
     #something here...
 end
 # ENDSAMPLE
+
+# SAMPLE: explicit-bottle
+@solution = FubuRake::Solution.new do |sln|
+	# Other options
+	
+	sln.assembly_bottle 'FubuMVC.Diagnostics'
+end
+# ENDSAMPLE
+
+
+
+# SAMPLE: disable-bottling
+@solution = FubuRake::Solution.new do |sln|
+	# Other options
+
+	sln.bottles_enabled = false # need to do the zip bottling in tests, so don't do it here
+end
+# ENDSAMPLE

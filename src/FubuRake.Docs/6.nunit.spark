@@ -1,5 +1,10 @@
 ﻿<!--Title: NUnit Tests-->
 
+  <Section title="Auto Discovery" id="auto">
+Without any explicit configuration of testing projects, FubuRake will create a <code>:unit_test</code> task that trys to run NUnit against all projects in the code tree that are suffixed with either ".Tests" or ".Testing".
+
+If the TESTS.txt exists or the <code>:unit_test_projects</code> option is set in the rake file, the explicit configuration will be used instead. 
+  </Section>
 
   <Section title="List Testing Projects in TESTS.txt" id="teststxt">
     This option is the default and requires no explicit configuratino.  As a way to make project and solution generation easier, we moved the list of testing projects to a TESTS.txt file in the root directory.  That file looks like this example from [FubuMVC.ViewEngines](https://github.com/DarthFubuMVC/FubuMVC.ViewEngines):

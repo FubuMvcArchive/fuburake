@@ -7,7 +7,7 @@ FubuRake is a standard Ruby library to quickly stand up a fully functional, cros
 
 <a class="btn btn-info" href="http://github.com/DarthFubuMVC/FubuRake">GitHub</a>
 <a class="btn btn-inverse" href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">User List</a>
-<a class="btn btn-inverse" href="something">RubyGems Page</a> TODO(Put a link to the ruby gems page when it exists)
+<a class="btn btn-inverse" href="https://rubygems.org/gems/fuburake">RubyGems Page</a> 
 <p></p>
 
 <Section title="Installation" id="installation">

@@ -1,0 +1,46 @@
+<!--Title: Working with Bottles-->
+
+<markdown>
+
+FubuRake includes support for working with Bottle projects inside your build script, specifically to package content into csproj files as a prerequisite to compilation.
+
+Assembly bottle projects function by "smuggling" content like views, scripts, and stylesheets inside zip files as embedded resource files within assemblies.  Before compiling a project that acts as an assembly bottle, you need to execute the <code>bottles assembly-pak</code> command against each project in your solution that acts as a bottle.
+
+<Section title="Auto Bottling" id="auto">
+If no projects are explicitly configured as assembly bottles as in the following section, FubuRake will look for the presence of any project folder with a <code>.package-manifest</code> project and automatically create a task to "bottle up" the content in that project and make that task a dependency to <code>:compile</code>.
+</Section>
+
+
+TODO: Add a link to Bottles
+
+<Section title="Explicitly Specifying Bottles" id="explicit">
+
+You can explicitly tell FubuRake which projects should be treated as assembly bottles using the syntax shown below:
+
+<Snippet name="explicit-bottle" />
+
+If you were to run <code>rake --prereq</code> on the sample above, you'd see:
+
+<pre>
+rake bottle_fubumvc_diagnostics
+rake ci
+    default
+    ripple:history
+    ripple:package
+rake clean
+rake compile
+    clean
+    version
+    ripple:restore
+    docs:bottle
+    bottle_fubumvc_diagnostics
+</pre>
+
+<Section title="Disabling Bottling Altogether" id="disable">
+If necessary, you can completely opt out of auto-bottling with the following option:
+
+<Snippet name="disable-bottling" />
+</Section>
+
+</markdown>
+

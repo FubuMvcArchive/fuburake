@@ -7,11 +7,13 @@ FubuRake supports compilation with both MSBuild on Windows and xBuild from Mono 
 </markdown>
 
 <Section title="The Default :compile Task" id="default">
-Setting up the <code>:compile</code> task is generally declarative.  There are other options listed in the next section, but for the most part you only need to set the <code>:solutionfile</code> attribute as in the code below:
+Setting up the <code>:compile</code> task is generally declarative.  If you only have one *.sln file in the code tree, FubuRake will find that automatically and use the default compilation options to create the <code>:compile</code> task.  
+
+If you do have multiple solution files or just prefer the build file to be more explicit, you only need to set the <code>:solutionfile</code> attribute as in the code below:
   
   <Snippet name="default-compile" />  
   
-  
+  There are other compilation options explained in the next section.
   
 </Section>
 
