@@ -21,6 +21,7 @@
     ripple:package         # packages the nuget files from the nuspec files in p...
     ripple:restore         # Restores nuget package files and updates all floati...
     ripple:update          # Updates nuget package files to the latest
+	sln                    # Opens the Solution file in Visual Studio.Net
     unit_test              # Runs unit tests
     version                # Update the version information for the build
   </pre>
