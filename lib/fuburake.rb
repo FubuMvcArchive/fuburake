@@ -24,11 +24,13 @@ module FubuRake
 		:precompile,
 		:integration_test,
 		:compilations,
-		:bottles
+		:bottles,
+		:bottles_enabled
 		
 	def initialize
 	    @options = {}
 		@bottles = []
+		@bottles_enabled = true
 	
 		solutions = Dir.glob('**/*.sln')
 		if solutions.count == 1
@@ -115,7 +117,7 @@ module FubuRake
 		c.create @options
 	  end
 	  
-	  if tasks.bottles.empty?
+	  if tasks.bottles.empty? && tasks.bottles_enabled
 		Dir.glob('**/.package-manifest').each do |f|
 		   dir = File.dirname(f)
 		   project = dir.split('/').last
