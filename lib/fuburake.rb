@@ -117,6 +117,8 @@ module FubuRake
 		c.create @options
 	  end
 	  
+	  
+	  
 	  if tasks.bottles.empty? && tasks.bottles_enabled
 		Dir.glob('**/.package-manifest').each do |f|
 		   dir = File.dirname(f)

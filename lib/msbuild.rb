@@ -10,6 +10,11 @@ module FubuRake
 	  end
 
 	  compileTask.add_description "Compiles the solution #{tasks.compile[:solutionfile]}"
+	  
+	  openTask = Rake::Task.define_task :sln do
+	    sh "start #{tasks.compile[:solutionfile]}"
+	  end
+	  openTask.add_description "Open solution #{tasks.compile[:solutionfile]}"
 
 	  return compileTask
 	end
