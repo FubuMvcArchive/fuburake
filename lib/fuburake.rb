@@ -76,7 +76,7 @@ module FubuRake
 	  @options = {
 		:compilemode => ENV['config'].nil? ? "Debug" : ENV['config'],
 		:clrversion => 'v4.0.30319',
-		:platform => 'x86',
+		:platform => ENV['platform'].nil? ? "" : ENV['platform'],
 		:unit_test_list_file => 'TESTS.txt',
 		:unit_test_projects => [],
 		:build_number => @build_number,
@@ -263,3 +263,4 @@ end
 def cleanFile(file)
   File.delete file unless !File.exist?(file)
 end
+

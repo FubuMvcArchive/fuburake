@@ -14,12 +14,7 @@ module FubuRake
 	  
 	  else
 	    # just find testing projects
-		Dir.glob('**/*.Testing.csproj').each do |f|
-		   test = File.basename(f, ".csproj")
-		   tests.push test
-		end
-		
-		Dir.glob('**/*.Tests.csproj').each do |f|
+		Dir.glob('**/*.{Testing,Tests}.csproj').each do |f|
 		   test = File.basename(f, ".csproj")
 		   tests.push test
 		end
@@ -55,7 +50,7 @@ class NUnitRunner
 	def initialize(paths)
 		@sourceDir = paths.fetch(:source, 'src')
 		@resultsDir = paths.fetch(:results, 'results')
-		@compilePlatform = paths.fetch(:platform, 'x86')
+		@compilePlatform = paths.fetch(:platform, '')
 		@compileTarget = paths.fetch(:compilemode, 'debug')
 		@clrversion = paths.fetch(:clrversion,  'v4.0.30319')
 		@nunitExe = Nuget.tool("NUnit", "nunit-console#{(@compilePlatform.empty? ? '' : "-#{@compilePlatform}")}.exe") + Platform.switch("nothread")
@@ -65,8 +60,9 @@ class NUnitRunner
 		Dir.mkdir @resultsDir unless exists?(@resultsDir)
 		
 		assemblies.each do |assem|
-			file = File.expand_path("#{@sourceDir}/#{assem}/bin/#{@compileTarget}/#{assem}.dll")
-			sh Platform.runtime("#{@nunitExe} -xml=#{@resultsDir}/#{assem}-TestResults.xml \"#{file}\"", @clrversion)
+			file = File.expand_path("#{@sourceDir}/#{assem}/bin/#{@compilePlatform.empty? ? '' : @compilePlatform + '/'}#{@compileTarget}/#{assem}.dll")
+      puts "The platform is #{@compilePlatform}"
+			sh Platform.runtime("#{@nunitExe} -noshadow -xml=#{@resultsDir}/#{assem}-TestResults.xml \"#{file}\"", @clrversion)
 		end
 	end
 	
@@ -96,3 +92,4 @@ class NUnitRunner
 	  end
 	end
 end
+
