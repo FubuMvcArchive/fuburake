@@ -74,10 +74,13 @@ module FubuRake
 		  sh "git remote add -t #{branch} -f origin #{repository}"
 		  sh "git checkout #{branch}"
 		  
+		  
+		  
 		  # clean the existing content
+		  sleep 0.5 # let the file system try to relax its locks
 		  content_files = FileList['*.*'].exclude('.nojekyll')
 		  content_files.each do |f|
-		    File.delete f
+		    FileUtils.rm_r f
 		  end
 		  
 		  # do the actual export
@@ -85,6 +88,10 @@ module FubuRake
 		  cmd = "fubudocs export fubudocs-export"
 		  if (options[:host] != nil)
 		    cmd += " --host #{options[:host]}"
+		  end
+
+		  if (options[:include] != nil)
+		    cmd += " -i #{options[:include]}"
 		  end
 		  
 		  # TODO -- will need to filter the doc projects
