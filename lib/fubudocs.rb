@@ -70,6 +70,11 @@ module FubuRake
 		  sh "git remote add -t #{branch} -f origin #{repository}"
 		  sh "git checkout #{branch}"
 		  
+		  content_files = FileList['*.*'].exclude('.nojekyll')
+		  content_files.each do |f|
+		    File.delete f
+		  end
+		  
 		  Dir.chdir '..'
 		end
 		exportTask.add_description "Export the generated documentation to #{repository}/#{branch}"
