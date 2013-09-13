@@ -33,8 +33,9 @@ module FubuRake
 		# :repo, :branch
 		branch = options.fetch(:branch, 'gh-pages')
 		repository = options[:repository]
+		prefix = options.fetch(:prefix, 'docs')
 		
-		initTask = Rake::Task.define_task 'docs:init_branch' do
+		initTask = Rake::Task.define_task "#{prefix}:init_branch" do
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
 
@@ -60,7 +61,7 @@ module FubuRake
 		
 		initTask.add_description "Initializes the #{branch} branch in git repository #{repository}"
 		
-		exportTask = Rake::Task.define_task 'docs:export' do
+		exportTask = Rake::Task.define_task "#{prefix}:export" do
 		  # seed the directory
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
