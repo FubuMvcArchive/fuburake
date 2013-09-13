@@ -15,9 +15,10 @@ solution = FubuRake::Solution.new do |sln|
 	sln.compile_step :other_compile, 'src/FubuRake.sln'
 	
 	sln.precompile = [:fake]
+	
+	# TODO -- add this later:  , :include_in_ci => true
+	sln.export_docs({:repository => 'git@github.com:DarthFubuMVC/fuburake.git'})
 end
-
-FubuRake::FubuDocsGitExport.create_tasks ({:repository => "git@github.com:DarthFubuMVC/fuburake.git", :version => solution.options[:build_number]})
 
 desc "Just a fake task for testing"
 task :fake do

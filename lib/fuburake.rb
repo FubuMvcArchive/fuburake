@@ -25,7 +25,8 @@ module FubuRake
 		:integration_test,
 		:compilations,
 		:bottles,
-		:bottles_enabled
+		:bottles_enabled,
+		:doc_exports
 		
 	def initialize
 	    @options = {}
@@ -50,6 +51,12 @@ module FubuRake
 		@bottles ||= []
 	
 		@bottles << FubuRake::AssemblyBottle.new(project)
+	end
+	
+	def export_docs(options)
+		@doc_exports ||= []
+		
+		@doc_exports << options
 	end
   end
   
@@ -138,6 +145,16 @@ module FubuRake
 		  c.create @options
 		end
 	  end
+	  
+	  tasks.doc_exports.each do |opts|
+	    opts[:version] = @build_number
+		
+		doc_task_name = FubuRake::FubuDocsGitExport.create_tasks opts
+		if opts[:include_in_ci]
+		  add_dependency :ci, doc_task_name
+		end
+	  end
+	  
 	end
 	
 	def add_dependency(from, to)

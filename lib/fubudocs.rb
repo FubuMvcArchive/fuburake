@@ -61,7 +61,8 @@ module FubuRake
 		
 		initTask.add_description "Initializes the #{branch} branch in git repository #{repository}"
 		
-		exportTask = Rake::Task.define_task "#{prefix}:export" do
+		exportTaskName = "#{prefix}:export"
+		exportTask = Rake::Task.define_task exportTaskName do
 		  # seed the directory
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
@@ -94,14 +95,24 @@ module FubuRake
 		  Dir.chdir 'fubudocs-export'
 		  
 		  sh "git add ."
-		  sh 'git commit -a -m "Doc generation version ' + options[:version] + '"'
-		  sh "git push origin #{branch}"
-		  puts "Documentation generation and push to #{repository}/#{branch} is successful"
+		  sh 'git commit -a -m "Doc generation version ' + options[:version] + '"' do |ok, res|
+			if ok
+		      sh "git push origin #{branch}"
+		      puts "Documentation generation and push to #{repository}/#{branch} is successful"
+			else
+			  puts "commit failed, might be because there are no differences in the content"
+			end
+		  end
+		  
+
 		  
 		  Dir.chdir '..'
 		end
 		exportTask.add_description "Export the generated documentation to #{repository}/#{branch}"
 		#exportTask.enhance [:compile]
+		
+		
+		return exportTaskName
 	end
   end
   
