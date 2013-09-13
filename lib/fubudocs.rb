@@ -61,21 +61,34 @@ module FubuRake
 		initTask.add_description "Initializes the #{branch} branch in git repository #{repository}"
 		
 		exportTask = Rake::Task.define_task 'docs:export' do
+		  # seed the directory
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
 		  Dir.mkdir 'fubudocs-export'
 		  
+		  # fetch the gh-pages branch from the server
 		  Dir.chdir 'fubudocs-export'
 		  sh 'git init'
 		  sh "git remote add -t #{branch} -f origin #{repository}"
 		  sh "git checkout #{branch}"
 		  
+		  # clean the existing content
 		  content_files = FileList['*.*'].exclude('.nojekyll')
 		  content_files.each do |f|
 		    File.delete f
 		  end
 		  
+		  # do the actual export
 		  Dir.chdir '..'
+		  cmd = "fubudocs export fubudocs-export"
+		  if (options[:host] != nil)
+		    cmd += " --host #{options[:host]}"
+		  end
+		  
+		  # TODO -- will need to filter the doc projects
+		  
+		  sh cmd
+		  
 		end
 		exportTask.add_description "Export the generated documentation to #{repository}/#{branch}"
 		#exportTask.enhance [:compile]
