@@ -38,6 +38,8 @@ module FubuRake
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
 		  
+		  sh "ripple gitignore fubudocs-export"
+		  
 		  sh "git clone #{repository} fubudocs-export"
 		  
 		  Dir.chdir 'fubudocs-export'
@@ -45,7 +47,7 @@ module FubuRake
 		  sh "git checkout --orphan #{branch}"
 		  sh "git rm -rf ."
 		  
-		  output = File.open( "fubudocs-export/.nojekyll" )
+		  output = File.new( ".nojekyll", "w+" )
 		  output << "Just a marker"
           output.close
 		  
