@@ -1,0 +1,78 @@
+
+span.file-changed {
+    float: right;
+}
+
+div.single-command-usage {
+    border-left: 5px solid #DDDDDD;
+    white-space: pre;
+    font-family: serif;
+    color: #777777;
+    margin-left: 10px;
+}
+
+.single-command-usage em {
+    color: navy;
+    font-style: italic;
+    padding-right: 3px;
+    margin-left: 10px;
+}
+
+section h4 span.section-header {
+    margin-right: 10px;
+}
+
+i.command-description {
+    font-weight: lighter;
+}
+
+.usages-table, .single-command-usage {
+    margin-top: 10px;
+}
+
+.command-section h4 {
+    margin-bottom: 10px;
+}
+
+.text-right {
+text-align: right;
+}
+
+.tag-line {
+}
+
+.header-line {
+    margin-bottom:40px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.build-list {
+    list-style-type: none;
+    margin-left:0;
+}
+
+.build-list .btn {
+    width:100px;
+    padding: 0px 5px;
+    background-color: #CCC;
+    font: 300 16px/30px Oswald, Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom:5px;
+    cursor:default;
+}
+
+.build-list .btn.build-success {
+    background-color: #468847;
+}
+
+.build-list .btn.build-failure {
+    background-color: #b94a48;
+}
+
+.no-release {
+    max-width: 175px;
+}

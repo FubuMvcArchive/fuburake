@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>
+      FubuRake - Compilation</title>
+    
+<meta charset="utf-8"/>
+<meta name="description" content="FubuDocs"/>
+<meta name="author" content="FubuDocs"/>
+
+
+
+
+<link href="../_content/styles/sons-of-obsidian.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr-responsive.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.core.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.theme.css" rel="stylesheet" type="text/css" />
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="container">
+      
+      
+
+<div class="row">
+  <div class="span6">
+    <p class="logo">
+      <a href="../topics" title="Fubu" class="root-link"><span>Fubu</span></a>
+      <a href=".." title="Rake the idiomatic Fubu way" class="project-logo"><span>FubuRake</span></a>
+    </p>
+  </div>
+  <div class="span6">
+    <div class="top-header text-right">
+      <em>
+        <em><a href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">Join our vibrant mailing list</a></em>
+      </em>
+      <div class="social">
+        <a href="http://github.com/DarthFubuMVC/FubuRake" class="ico-github"><img alt="Github" src="../_content/images/github-icon.png" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="nav-follow" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../compilation" data-key="compilation">Compilation &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../options" title="Options">Previous</a></li><li><a href="../clean" title="Cleaning before new Builds">Next</a></li></ul>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        
+
+        <div class="row">
+          <div class="span3 sidebar">
+            <h3 class="half-margin">Topics</h3>
+            <ul id="page-toc" class="nav nav-tabs nav-stacked affix">
+            </ul>
+            <br/>
+            <h3>
+              FubuRake v1.1.0
+            </h3>
+
+            <br/>
+            <h3 class="no-margin">Next</h3>
+<p><a href="../clean" data-key="clean">Cleaning before new Builds</a></p>
+<h3 class="no-margin">Previous</h3>
+<p><a href="../options" data-key="options">Options</a></p>
+          </div>
+          <div class="span9">
+            <h1 class="no-margin">Compilation</h1>
+            <hr class="header-line"></hr>
+
+            <!--Title: Compilation-->
+
+
+<p>FubuRake supports compilation with both MSBuild on Windows and xBuild from Mono with Linux. FubuRake's compilation support will detect the platform for you and switch the compilation strategy accordingly.</p>
+
+
+<section><h4 id="default" class="section-header">The Default :compile Task</h4>
+Setting up the <code>:compile</code> task is generally declarative.  If you only have one *.sln file in the code tree, FubuRake will find that automatically and use the default compilation options to create the <code>:compile</code> task.  
+
+If you do have multiple solution files or just prefer the build file to be more explicit, you only need to set the <code>:solutionfile</code> attribute as in the code below:
+  
+  <pre data-linenums="53" class="prettyprint lang-rb">
+solution = FubuRake::Solution.new do |sln|
+	sln.compile = {
+		:solutionfile =&gt; &#39;src/FubuRake.sln&#39;
+	}
+end
+</pre>  
+  
+  There are other compilation options explained in the next section.
+  </section>
+
+<section><h4 id="options" class="section-header">Compilation Options</h4>
+Typically you will just use the FubuRake options and only specify the :solutionfile, but it's still good to know what the levers are that you could pull to customize the compilation.
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>:compilemode</td>
+        <td>The compilation mode. Uses the :compilemode from the FubuRake::Solution.options by default, but can be overriden.</td>
+      </tr>
+      <tr>
+        <td>:solutionfile</td>
+        <td>The path to the *.sln or *.csproj file to compile</td>
+      </tr>
+      <tr>
+        <td>:clrversion</td>
+        <td>The CLR version of MSBuild or xBuild.  Uses :clrversion from the FubuRake::Solution.options by default, but can be overriden</td>
+      </tr>
+    </tbody>
+  
+  </table></section>
+
+<section><h4 id="other" class="section-header">Other Compilation Steps</h4>
+If you need additional compilation tasks beyond the default <code>:default</code> task, you can use the <code>:compile_step</code> method to generate additional compilation tasks using the same options as the rest of the solution like so:
+  <pre data-linenums="70" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+	sln.compile = {
+		:solutionfile =&gt; &#39;src/Bottles.sln&#39;
+	}
+				 
+	sln.compile_step :compile_console, &#39;src/Bottles.Console/Bottles.Console.csproj&#39;
+	sln.compile_step :compile_bottle_project, &#39;bottles-staging/BottleProject.csproj&#39;
+end
+</pre>
+The first argument (<code>:compile_console</code>) is the name of the task and the second argument is the relative path to either a *.csproj or *.sln file.</section>
+
+<section><h4 id="prereqs" class="section-header">Adding Prerequisite Tasks</h4>
+If you need to chain other custom tasks as dependencies to the <code>:default</code> task, use the <code>precompile</code> property to add an array of task names as in the following example:
+  <pre data-linenums="81" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+	sln.compile = {
+		:solutionfile =&gt; &#39;src/Bottles.sln&#39;
+	}
+
+	sln.precompile = [:bottle_assembly_package]
+end
+
+desc &quot;does the assembly bottling of the AssemblyPackage test project&quot;
+task :bottle_assembly_package =&gt; [:compile_bottle_project] do
+  # do the bottling...
+end
+</pre></section>
+
+<Section title="MSBuildRunner">
+
+
+</Section>
+  
+  
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="../_content/scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/bootstrap-prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs.js"></script>
+<script type="text/javascript" src="../_content/scripts/toastr.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs-tools.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap-affix.js"></script>
+<script type="text/javascript" src="../_content/scripts/topics.js"></script>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>
+      Powered by <a href="http://github.com/DarthFubuMVC/FubuDocs">FubuDocs</a>.
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

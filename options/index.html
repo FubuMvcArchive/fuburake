@@ -1,0 +1,233 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>
+      FubuRake - Options</title>
+    
+<meta charset="utf-8"/>
+<meta name="description" content="FubuDocs"/>
+<meta name="author" content="FubuDocs"/>
+
+
+
+
+<link href="../_content/styles/sons-of-obsidian.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr-responsive.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.core.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.theme.css" rel="stylesheet" type="text/css" />
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="container">
+      
+      
+
+<div class="row">
+  <div class="span6">
+    <p class="logo">
+      <a href="../topics" title="Fubu" class="root-link"><span>Fubu</span></a>
+      <a href=".." title="Rake the idiomatic Fubu way" class="project-logo"><span>FubuRake</span></a>
+    </p>
+  </div>
+  <div class="span6">
+    <div class="top-header text-right">
+      <em>
+        <em><a href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">Join our vibrant mailing list</a></em>
+      </em>
+      <div class="social">
+        <a href="http://github.com/DarthFubuMVC/FubuRake" class="ico-github"><img alt="Github" src="../_content/images/github-icon.png" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="nav-follow" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../options" data-key="options">Options &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../layout" title="Codebase Layout">Previous</a></li><li><a href="../compilation" title="Compilation">Next</a></li></ul>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        
+
+        <div class="row">
+          <div class="span3 sidebar">
+            <h3 class="half-margin">Topics</h3>
+            <ul id="page-toc" class="nav nav-tabs nav-stacked affix">
+            </ul>
+            <br/>
+            <h3>
+              FubuRake v1.1.0
+            </h3>
+
+            <br/>
+            <h3 class="no-margin">Next</h3>
+<p><a href="../compilation" data-key="compilation">Compilation</a></p>
+<h3 class="no-margin">Previous</h3>
+<p><a href="../layout" data-key="layout">Codebase Layout</a></p>
+          </div>
+          <div class="span9">
+            <h1 class="no-margin">Options</h1>
+            <hr class="header-line"></hr>
+
+            <!--Title: Options-->
+
+
+
+
+Most of the time you'll be able to use the fuburake defaults as is, but even so, it's always good to know what the defaults are and how you can change them.
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>:compilemode</td>
+        <td>The .Net compilation mode ("Debug" or "Release" usually)</td>
+        <td>
+          "Debug" unless the "Config" argument given from the command line like <code>rake Config=Release</code>
+        </td>
+      </tr>
+      <tr>
+        <td>:clrversion</td>
+        <td>The CLR version used to locate the MSBuild executable for compilation</td>
+        <td>v4.0.30319</td>
+      </tr>
+      <tr>
+        <td>:platform</td>
+        <td>Platform for executing NUnit tests and compilation</td>
+        <td>x86</td>
+      </tr>
+      <tr>
+        <td>:unit_test_list_file</td>
+        <td>If this is set and :unit_test_projects is not, this value will be used to generate the :unit_test task</td>
+        <td>TESTS.txt</td>
+      </tr>
+      <tr>
+        <td>:unit_test_projects</td>
+        <td>Array of projects by name to run in the :unit_test task</td>
+        <td>nil</td>
+      </tr>
+      <tr>
+        <td>:build_number</td>
+        <td>The complete semantic version number in 4 digit form (#.#.#.#)</td>
+        <td>
+          The semantic version is imported from VERSION.txt and the last number is either given by <code>rake BUILD_NUMBER=###</code> for CI builds or uses the current time for local builds
+        </td>
+      </tr>
+      <tr>
+        <td>:asm_version</td>
+        <td>The semantic version of the assembly</td>
+        <td>See :build_number</td>
+      </tr>
+      <tr>
+        <td>:tc_build_number</td>
+        <td>The sequential CI build number</td>
+        <td>
+          In CI builds this is passed into rake as a command line argument
+        </td>
+      </tr>
+      <tr>
+        <td>:build_revision</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>:source</td>
+        <td>The relative path of the folder containing the source code</td>
+        <td>src</td>
+      </tr>
+    </tbody>
+  </table>
+  
+For a little more context, here's how the default options are determined:
+
+<pre data-linenums="58" class="prettyprint lang-rb">
+	  tc_build_number = ENV[&quot;BUILD_NUMBER&quot;]
+	  build_revision = tc_build_number || Time.new.strftime(&#39;5%H%M&#39;)
+	  asm_version = BUILD_VERSION + &quot;.0&quot;
+	  @build_number = &quot;#{BUILD_VERSION}.#{build_revision}&quot;
+	  
+	  
+	  @options = {
+		:compilemode =&gt; ENV[&#39;config&#39;].nil? ? &quot;Debug&quot; : ENV[&#39;config&#39;],
+		:clrversion =&gt; &#39;v4.0.30319&#39;,
+		:platform =&gt; &#39;x86&#39;,
+		:unit_test_list_file =&gt; &#39;TESTS.txt&#39;,
+		:unit_test_projects =&gt; [],
+		:build_number =&gt; @build_number,
+		:asm_version =&gt; asm_version,
+		:tc_build_number =&gt; tc_build_number,
+		:build_revision =&gt; build_revision,
+		:source =&gt; &#39;src&#39;}.merge(options)
+</pre>
+  
+
+
+
+<section><h4 id="overriding" class="section-header">Overriding Options</h4>
+  You can override the options by defining the options hash in the <code>FubuRake::Solution.new</code> closure like so:
+
+  <pre data-linenums="33" class="prettyprint lang-rb">
+load &#39;lib/fuburake.rb&#39;
+
+solution = FubuRake::Solution.new do |sln|
+	sln.options = {
+		:compilemode =&gt; &#39;Custom&#39;,
+		:unit_test_projects =&gt; [&#39;Something.Tests&#39;]
+	}
+end
+</pre></section>
+
+<section><h4 id="using" class="section-header">Using Options</h4>
+You can reuse the options in other parts of your rake script just by keeping a reference to the <code>FubuRake::Solution</code> object:  
+  
+  <pre data-linenums="45" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+	# Configure your rake script here...
+end
+
+puts &quot;The build number is #{@solution.options[:build_number]}&quot;
+</pre></section>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="../_content/scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/bootstrap-prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs.js"></script>
+<script type="text/javascript" src="../_content/scripts/toastr.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs-tools.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap-affix.js"></script>
+<script type="text/javascript" src="../_content/scripts/topics.js"></script>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>
+      Powered by <a href="http://github.com/DarthFubuMVC/FubuDocs">FubuDocs</a>.
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

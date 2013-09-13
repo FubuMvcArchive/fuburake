@@ -1,0 +1,147 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>
+      FubuRake - NUnit Tests</title>
+    
+<meta charset="utf-8"/>
+<meta name="description" content="FubuDocs"/>
+<meta name="author" content="FubuDocs"/>
+
+
+
+
+<link href="../_content/styles/sons-of-obsidian.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr-responsive.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.core.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.theme.css" rel="stylesheet" type="text/css" />
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="container">
+      
+      
+
+<div class="row">
+  <div class="span6">
+    <p class="logo">
+      <a href="../topics" title="Fubu" class="root-link"><span>Fubu</span></a>
+      <a href=".." title="Rake the idiomatic Fubu way" class="project-logo"><span>FubuRake</span></a>
+    </p>
+  </div>
+  <div class="span6">
+    <div class="top-header text-right">
+      <em>
+        <em><a href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">Join our vibrant mailing list</a></em>
+      </em>
+      <div class="social">
+        <a href="http://github.com/DarthFubuMVC/FubuRake" class="ico-github"><img alt="Github" src="../_content/images/github-icon.png" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="nav-follow" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../nunit" data-key="nunit">NUnit Tests &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../version" title="Assembly Versioning">Previous</a></li><li><a href="../ripple" title="Ripple Integration">Next</a></li></ul>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        
+
+        <div class="row">
+          <div class="span3 sidebar">
+            <h3 class="half-margin">Topics</h3>
+            <ul id="page-toc" class="nav nav-tabs nav-stacked affix">
+            </ul>
+            <br/>
+            <h3>
+              FubuRake v1.1.0
+            </h3>
+
+            <br/>
+            <h3 class="no-margin">Next</h3>
+<p><a href="../ripple" data-key="ripple">Ripple Integration</a></p>
+<h3 class="no-margin">Previous</h3>
+<p><a href="../version" data-key="version">Assembly Versioning</a></p>
+          </div>
+          <div class="span9">
+            <h1 class="no-margin">NUnit Tests</h1>
+            <hr class="header-line"></hr>
+
+            <!--Title: NUnit Tests-->
+
+  <section><h4 id="auto" class="section-header">Auto Discovery</h4>
+Without any explicit configuration of testing projects, FubuRake will create a <code>:unit_test</code> task that trys to run NUnit against all projects in the code tree that are suffixed with either ".Tests" or ".Testing".
+
+If the TESTS.txt exists or the <code>:unit_test_projects</code> option is set in the rake file, the explicit configuration will be used instead. </section>
+
+  <section><h4 id="teststxt" class="section-header">List Testing Projects in TESTS.txt</h4>
+    This option is the default and requires no explicit configuratino.  As a way to make project and solution generation easier, we moved the list of testing projects to a TESTS.txt file in the root directory.  That file looks like this example from [FubuMVC.ViewEngines](https://github.com/DarthFubuMVC/FubuMVC.ViewEngines):
+
+<pre>
+  FubuMVC.Core.View.Testing
+  FubuMVC.Razor.Tests
+  FubuMVC.Spark.Tests
+  ViewEngineIntegrationTesting
+</pre>
+</section>
+
+  <section><h4 id="explicit" class="section-header">Explicitly Define Testing Projects</h4>
+If you don't want to use the TESTS.txt file and prefer the testing projects be explicitly defined in your rake file, just set the <code>:unit_test_projects</code> option like this:
+
+<pre data-linenums="105" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+	sln.options = {
+		:unit_test_projects =&gt; [&#39;Bottles.Tests&#39;]
+	}
+end
+</pre></section>
+
+  <section><h4 id="integration" class="section-header">Integration Testing</h4>
+If you want a specific task for integration testing separate from unit tests for the "fast build/slow build" segregation, there's a helper to define an <code>:integration_test</code> task like this:
+
+<pre data-linenums="113" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+	sln.integration_test = [&#39;Bottles.IntegrationTesting&#39;]
+end
+</pre></section>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="../_content/scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/bootstrap-prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs.js"></script>
+<script type="text/javascript" src="../_content/scripts/toastr.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs-tools.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap-affix.js"></script>
+<script type="text/javascript" src="../_content/scripts/topics.js"></script>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>
+      Powered by <a href="http://github.com/DarthFubuMVC/FubuDocs">FubuDocs</a>.
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

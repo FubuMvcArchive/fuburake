@@ -1,0 +1,121 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>
+      FubuRake - Codebase Layout</title>
+    
+<meta charset="utf-8"/>
+<meta name="description" content="FubuDocs"/>
+<meta name="author" content="FubuDocs"/>
+
+
+
+
+<link href="../_content/styles/toastr.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr-responsive.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.core.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.theme.css" rel="stylesheet" type="text/css" />
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="container">
+      
+      
+
+<div class="row">
+  <div class="span6">
+    <p class="logo">
+      <a href="../topics" title="Fubu" class="root-link"><span>Fubu</span></a>
+      <a href=".." title="Rake the idiomatic Fubu way" class="project-logo"><span>FubuRake</span></a>
+    </p>
+  </div>
+  <div class="span6">
+    <div class="top-header text-right">
+      <em>
+        <em><a href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">Join our vibrant mailing list</a></em>
+      </em>
+      <div class="social">
+        <a href="http://github.com/DarthFubuMVC/FubuRake" class="ico-github"><img alt="Github" src="../_content/images/github-icon.png" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="nav-follow" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../layout" data-key="layout">Codebase Layout &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../tasks" title="Tasks">Previous</a></li><li><a href="../options" title="Options">Next</a></li></ul>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        
+
+        <div class="row">
+          <div class="span3 sidebar">
+            <h3 class="half-margin">Topics</h3>
+            <ul id="page-toc" class="nav nav-tabs nav-stacked affix">
+            </ul>
+            <br/>
+            <h3>
+              FubuRake v1.1.0
+            </h3>
+
+            <br/>
+            <h3 class="no-margin">Next</h3>
+<p><a href="../options" data-key="options">Options</a></p>
+<h3 class="no-margin">Previous</h3>
+<p><a href="../tasks" data-key="tasks">Tasks</a></p>
+          </div>
+          <div class="span9">
+            <h1 class="no-margin">Codebase Layout</h1>
+            <hr class="header-line"></hr>
+
+            <!--Title: Codebase Layout-->
+<p>Over the years, the Fubu projects have settled on the following structure for code repositories.  Related tools like <span>LINK TO PROJECT &#39;FubuDocs&#39;</span> and <span>LINK TO PROJECT &#39;Ripple&#39;</span> also depend on these folder structures.</p>
+
+<ul>
+<li><em>/artifacts</em> - Generated folder where Nuget *.nukpg files, the Ripple history file, and any *.gem files will be written for archiving as a build artifact.</li>
+<li><em>/lib</em> - It is preferrable to not commit any binaries to the source tree, but when you do have to, use the lib folder.</li>
+<li><em>/packaging/nuget</em> - Any *.nuspec files for the Nuget's published by the code repository</li>
+<li><em>/results</em> - Generated for NUnit results</li>
+<li><em>/src</em> - All source code here, with each *.csproj file in a separate directory.  You can use nested folders for projects, but note that many of the Fubu command line tools assume that a project directory is directly under src.</li>
+<li><em>Gemfile</em> - See <a href="http://rubygems.org/">RubyGems</a> for more information.</li>
+<li><em>ripple.config</em> - Configures the <span>LINK TO PROJECT &#39;Ripple&#39;</span> feeds and locked dependencies for this codebase</li>
+<li><em>TESTS.txt</em> - Lists the projects to be run as unit tests in the rake build in order.  This is optional.</li>
+<li><em>VERSION.txt</em> - For the moment VERSION.txt defines the current semantic version of the codebase.</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="../_content/scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs.js"></script>
+<script type="text/javascript" src="../_content/scripts/toastr.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs-tools.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap-affix.js"></script>
+<script type="text/javascript" src="../_content/scripts/topics.js"></script>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>
+      Powered by <a href="http://github.com/DarthFubuMVC/FubuDocs">FubuDocs</a>.
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

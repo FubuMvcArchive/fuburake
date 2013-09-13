@@ -1,0 +1,184 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>
+      FubuRake - Tasks</title>
+    
+<meta charset="utf-8"/>
+<meta name="description" content="FubuDocs"/>
+<meta name="author" content="FubuDocs"/>
+
+
+
+
+<link href="../_content/styles/sons-of-obsidian.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/twitter/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/toastr-responsive.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.core.css" rel="stylesheet" type="text/css" />
+<link href="../_content/styles/fubudocs.theme.css" rel="stylesheet" type="text/css" />
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <div class="container">
+      
+      
+
+<div class="row">
+  <div class="span6">
+    <p class="logo">
+      <a href="../topics" title="Fubu" class="root-link"><span>Fubu</span></a>
+      <a href=".." title="Rake the idiomatic Fubu way" class="project-logo"><span>FubuRake</span></a>
+    </p>
+  </div>
+  <div class="span6">
+    <div class="top-header text-right">
+      <em>
+        <em><a href="https://groups.google.com/forum/?fromgroups#!forum/fubumvc-devel">Join our vibrant mailing list</a></em>
+      </em>
+      <div class="social">
+        <a href="http://github.com/DarthFubuMVC/FubuRake" class="ico-github"><img alt="Github" src="../_content/images/github-icon.png" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div id="nav-follow" class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../tasks" data-key="tasks">Tasks &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href=".." title="FubuRake">Previous</a></li><li><a href="../layout" title="Codebase Layout">Next</a></li></ul>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        
+
+        <div class="row">
+          <div class="span3 sidebar">
+            <h3 class="half-margin">Topics</h3>
+            <ul id="page-toc" class="nav nav-tabs nav-stacked affix">
+            </ul>
+            <br/>
+            <h3>
+              FubuRake v1.1.0
+            </h3>
+
+            <br/>
+            <h3 class="no-margin">Next</h3>
+<p><a href="../layout" data-key="layout">Codebase Layout</a></p>
+<h3 class="no-margin">Previous</h3>
+<p><a href=".." data-key="index">FubuRake</a></p>
+          </div>
+          <div class="span9">
+            <h1 class="no-margin">Tasks</h1>
+            <hr class="header-line"></hr>
+
+            <!--Title: Tasks-->
+
+<section><h4 id="sample" class="section-header">Sample</h4>
+  Assuming that you use the <a href="../layout" data-key="layout">standard Fubu project layout</a> for your code repository, you can take advantage of the fuburake gem to create a fully functional build script with [Rake](http://rake.rubyforge.org/) like so:
+
+  <pre data-linenums="2" class="prettyprint lang-rb">
+load &#39;lib/fuburake.rb&#39;
+
+solution = FubuRake::Solution.new do |sln|
+	sln.compile = {
+		:solutionfile =&gt; &#39;src/FubuRake.sln&#39;
+	}
+				 
+	sln.assembly_info = {
+		:product_name =&gt; &quot;FubuRake&quot;,
+		:copyright =&gt; &#39;Copyright Some Year by Some Guy&#39;
+	}
+	
+	sln.ripple_enabled = true
+	sln.fubudocs_enabled = true
+end
+</pre>
+
+  Behind the scenes, this simple invocation creates several rake tasks and creates the logical dependencies between tasks.  Taking the snippet above as an example, if we run <code>rake -T</code> to query the available tasks, we get:
+
+  <pre>
+    ci                     # Target used for the CI server
+    clean                  # Prepares the working directory for a new build
+    compile                # Compiles the application
+    default                # **Default**, compiles and runs tests
+    rake docs:bottle       # 'Bottles' up a single project in the solution with...
+    rake docs:run          # Tries to run a documentation project hosted in Fub...
+    rake docs:run_chrome   # Tries to run the documentation projects in this so...
+    rake docs:run_firefox  # Tries to run the documentation projects in this so...
+    rake docs:snippets     # Gathers up code snippets from the solution into th...
+    ripple:history         # creates a history file for nuget dependencies
+    ripple:package         # packages the nuget files from the nuspec files in p...
+    ripple:restore         # Restores nuget package files and updates all floati...
+    ripple:update          # Updates nuget package files to the latest
+	sln                    # Opens the Solution file in Visual Studio.Net
+    unit_test              # Runs unit tests
+    version                # Update the version information for the build
+  </pre>
+
+  If we run <code>rake --prereqs</code> to see the dependencies between tasks we get:
+
+  <pre>
+    rake ci
+    default
+    create_gem
+    archive_gem
+    ripple:history
+    ripple:package
+    rake clean
+    rake compile
+    clean
+    version
+    ripple:restore
+    docs:bottle
+    rake default
+    compile
+    unit_test
+    rake docs:bottle
+    rake docs:run
+    rake docs:run_chrome
+    rake docs:run_firefox
+    rake docs:snippets
+    rake ripple:history
+    rake ripple:package
+    rake ripple:restore
+    rake ripple:update
+    rake unit_test
+    compile
+    rake version
+  </pre></section>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="../_content/scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/bootstrap-prettify.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs.js"></script>
+<script type="text/javascript" src="../_content/scripts/toastr.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_content/scripts/fubudocs-tools.js"></script>
+<script type="text/javascript" src="../_content/scripts/twitter/bootstrap-affix.js"></script>
+<script type="text/javascript" src="../_content/scripts/topics.js"></script>
+
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>
+      Powered by <a href="http://github.com/DarthFubuMVC/FubuDocs">FubuDocs</a>.
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
