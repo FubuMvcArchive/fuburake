@@ -37,7 +37,7 @@ module FubuRake
 		initTask = Rake::Task.define_task 'docs:init_branch' do
 		  cleanDirectory 'fubudocs-export'
 		  Dir.delete 'fubudocs-export'
-		  
+
 		  sh "ripple gitignore fubudocs-export"
 		  
 		  sh "git clone #{repository} fubudocs-export"
@@ -59,6 +59,21 @@ module FubuRake
 		end
 		
 		initTask.add_description "Initializes the #{branch} branch in git repository #{repository}"
+		
+		exportTask = Rake::Task.define_task 'docs:export' do
+		  cleanDirectory 'fubudocs-export'
+		  Dir.delete 'fubudocs-export'
+		  Dir.mkdir 'fubudocs-export'
+		  
+		  Dir.chdir 'fubudocs-export'
+		  sh 'git init'
+		  sh "git remote add -t #{branch} -f origin #{repository}"
+		  sh "git checkout #{branch}"
+		  
+		  Dir.chdir '..'
+		end
+		exportTask.add_description "Export the generated documentation to #{repository}/#{branch}"
+		#exportTask.enhance [:compile]
 	end
   end
   
