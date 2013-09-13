@@ -86,9 +86,18 @@ module FubuRake
 		  end
 		  
 		  # TODO -- will need to filter the doc projects
-		  
 		  sh cmd
 		  
+		  
+		  # commit and push the generated docs
+		  Dir.chdir 'fubudocs-export'
+		  
+		  sh "git add ."
+		  sh 'git commit -a -m "Doc generation version ' + options[:version] + '"'
+		  sh "git push origin #{branch}"
+		  puts "Documentation generation and push to #{repository}/#{branch} is successful"
+		  
+		  Dir.chdir '..'
 		end
 		exportTask.add_description "Export the generated documentation to #{repository}/#{branch}"
 		#exportTask.enhance [:compile]
