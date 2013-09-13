@@ -22,6 +22,8 @@ solution = FubuRake::Solution.new do |sln|
 	sln.precompile = [:fake]
 end
 
+FubuRake::FubuDocsGitExport.create_tasks ({:repository => "git@github.com:DarthFubuMVC/fubucore.git"})
+
 desc "Just a fake task for testing"
 task :fake do
 	puts "I'm the FAKE task running!"
