@@ -99,6 +99,7 @@ module FubuRake
 	  tasks.defaults ||= []
 	  tasks.ci_steps ||= []
 	  tasks.precompile ||= []
+	  tasks.doc_exports ||= []
 	  
 
 	  enable_docs tasks
