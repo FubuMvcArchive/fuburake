@@ -144,3 +144,16 @@ end
 	sln.bottles_enabled = false # need to do the zip bottling in tests, so don't do it here
 end
 # ENDSAMPLE
+
+
+# SAMPLE: exporting
+@solution = FubuRake::Solution.new do |sln|
+	sln.export_docs({
+		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
+		:mode => 'GhPagesChildFolder',
+		
+		
+		})
+end
+
+# ENDSAMPLE

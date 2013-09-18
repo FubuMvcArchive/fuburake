@@ -17,7 +17,10 @@ solution = FubuRake::Solution.new do |sln|
 	sln.precompile = [:fake]
 	
 	# TODO -- add this later:  , :include_in_ci => true
-	sln.export_docs({:repository => 'git@github.com:DarthFubuMVC/fuburake.git'})
+	sln.export_docs({
+		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
+		:nested => true
+	})
 end
 
 desc "Just a fake task for testing"

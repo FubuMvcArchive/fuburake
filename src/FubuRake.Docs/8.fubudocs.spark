@@ -1,7 +1,13 @@
 ﻿<!--Title: FubuDocs Integration-->
 
+<Section title="Enabling FubuDocs Authoring Tasks" id="authoring">
+
 Enabling <ProjectLink name="FubuDocs"/> integration is done by just marking the <code>fubudocs_enabled</code> accessor as true like this:
 <Snippet name="enable-fubudocs" />
+
+</Section>
+
+<Section title="Basic FubuDocs Rake Tasks" id="basic">
 
 FubuDocs integration includes these tasks:
 
@@ -39,3 +45,11 @@ FubuDocs integration includes these tasks:
     </tr>
   </tbody>
 </table>
+
+</Section>
+
+<Section title="Exporting and publishing to gh-pages" id="exporting" >
+
+
+
+</Section>
