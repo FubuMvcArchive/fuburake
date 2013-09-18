@@ -80,7 +80,7 @@
 
             <!--Title: FubuDocs Integration-->
 
-<section><h4 id="authoring" class="section-header">Enabling FubuDocs Authoring Tasks</h4>
+<section><h4 id="authoring" class="section-header">FubuDocs Authoring Tasks</h4>
 
 Enabling <span>LINK TO PROJECT &#39;FubuDocs&#39;</span> integration is done by just marking the <code>fubudocs_enabled</code> accessor as true like this:
 <pre data-linenums="26" class="prettyprint lang-rb">
@@ -88,9 +88,6 @@ solution = FubuRake::Solution.new do |sln|
 	sln.fubudocs_enabled = true
 end
 </pre>
-</section>
-
-<section><h4 id="basic" class="section-header">Basic FubuDocs Rake Tasks</h4>
 
 FubuDocs integration includes these tasks:
 
@@ -133,7 +130,109 @@ FubuDocs integration includes these tasks:
 <section><h4 id="exporting" class="section-header">Exporting and publishing to gh-pages</h4>
 
 
+FubuRake includes some helpers to export and publish generated html documentation from
+FubuDocs projects to <a href="http://pages.github.com">GitHub Pages</a>.
+
+<div class="alert">
+  <strong>Heads up!</strong> These rake tasks will be running git commands from
+  the command line.  You'll need to have git installed and the default git
+  credentials on your box will have to have commit rights to the git repository
+</div>
+
+To enable these tasks, use the <code>export_docs</code> method as shown below:
+
+<pre data-linenums="150" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+  sln.export_docs({
+    :repository =&gt; &#39;git@github.com:DarthFubuMVC/fuburake.git&#39;, 
+    :prefix =&gt; &#39;docs&#39;,
+    :branch =&gt; &#39;gh-pages&#39;,
+    :include =&gt; &#39;FubuRake&#39;,
+    :nested =&gt; true,
+    :dump =&gt; true,
+    :dir =&gt; &#39;fubudocs-export&#39;,
+    :host =&gt; &#39;src/SomeFolder&#39;
+  })
+end
+</pre>
+
+Which will generate two new tasks for you:
+
+<table class="table">
+  <tr>
+    <td>docs:export</td>
+	<td>Exports the generated html documentation from the FubuDocs projects and commits any changes and pushes to the specified git repository</td>
+  </tr>
+  <tr>
+    <td>docs:init_branch</td>
+	<td>One time use only, will create and push a new orphan branch (<code>gh-pages</code> is the default) to the git repository specified</td>
+  </tr>
+</table>
+
+The options to the <code>export_docs</code> method are:
+
+<table class="table">
+  <tbody>
+    <tr>
+	  <td>:repository</td>
+	  <td>The address of the git repository that stores the documentation</td>
+	</tr>
+    <tr>
+	  <td>:prefix</td>
+	  <td>Allows you to specify the prefix of the <code>*:init_branch</code> and <code>*:export</code> tasks.  The default is 'gh-pages'</td>
+	</tr>
+	<tr>
+	  <td>:branch</td>
+	  <td>The name of the git branch that stores the documentation.  The default is 'gh-pages'</td>
+	</tr>
+	<tr>
+	  <td>:include</td>
+	  <td>In a solution with more than one FubuDocs project, you can specify a single project to export.  Leave off the ".Docs" suffix of the assembly name to specify the project name.</td>
+	</tr>
+	<tr>
+	  <td>:nested</td>
+	  <td>If you want to publish to a Git Page where the content is going to be available at the project level with a Url like <i>http://darthfubumvc.github.io/fuburake</i>, you need to set the <code>:nested</code> option to true to force all the links in the html to relative links.  The default is false.</td>
+	</tr>
+	<tr>
+	  <td>:dump</td>
+	  <td>Use this option to make the html generation be done with links that are suitable for browsing the html content from the file system.  The default is false.  Do not use this option in conjunction with <code>:nested</code></td>
+	</tr>
+	<tr>
+	  <td>:dir</td>
+	  <td>Override the location where the html documentation is written.  The default is 'fubudocs-export'</td>
+	</tr>
+	<tr>
+	  <td>:host</td>
+	  <td>Optionally specify the FubuDocs 'host' directory for skinning</td>
+	</tr>
+  </tbody>
+</table>
+
 </section>
+
+<section><h4 id="dumping" class="section-header">Dumping Generated Html Documentation</h4>
+
+If you simply want to export the html in a form that's browseable from the
+file system, use this code somewhere in your rake file to create a task:
+
+<pre data-linenums="165" class="prettyprint lang-rb">
+@solution = FubuRake::Solution.new do |sln|
+
+end
+
+@solution.dump_html({
+  :prefix =&gt; &#39;docs&#39;,
+  :include =&gt; &#39;FubuRake&#39;,
+  :dir =&gt; &#39;fubudocs-export&#39;,
+  :host =&gt; &#39;src/SomeFolder&#39;
+  :nested =&gt; true,
+  :dump =&gt; true
+})
+</pre>
+
+In this case, the <code>dump-html</code> is overriding the <code>:dump</code> option to true for you.
+</section>
+
           </div>
         </div>
       </div>
