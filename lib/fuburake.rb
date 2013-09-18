@@ -150,7 +150,9 @@ module FubuRake
 	  tasks.doc_exports.each do |opts|
 	    opts[:version] = @build_number
 		
-		doc_task_name = FubuDocs.export_tasks opts
+		docs = FubuDocs.new(opts)
+		
+		doc_task_name = docs.export_tasks
 		if opts[:include_in_ci]
 		  add_dependency :ci, doc_task_name
 		end
