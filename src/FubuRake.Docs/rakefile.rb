@@ -146,14 +146,32 @@ end
 # ENDSAMPLE
 
 
-# SAMPLE: exporting
+# SAMPLE: publishing
 @solution = FubuRake::Solution.new do |sln|
-	sln.export_docs({
-		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
-		:mode => 'GhPagesChildFolder',
-		
-		
-		})
+  sln.export_docs({
+    :repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
+    :prefix => 'docs',
+    :branch => 'gh-pages',
+    :include => 'FubuRake',
+    :nested => true,
+    :dump => true,
+    :dir => 'fubudocs-export',
+    :host => 'src/SomeFolder'
+  })
+end
+# ENDSAMPLE
+
+# SAMPLE: dump-html
+@solution = FubuRake::Solution.new do |sln|
+
 end
 
+@solution.dump_html({
+  :prefix => 'docs',
+  :include => 'FubuRake',
+  :dir => 'fubudocs-export',
+  :host => 'src/SomeFolder'
+  :nested => true,
+  :dump => true
+})
 # ENDSAMPLE

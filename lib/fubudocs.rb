@@ -1,15 +1,15 @@
 namespace :docs do
-	desc "Tries to run a documentation project hosted in FubuWorld"
+	desc "Runs a documentation project hosted in FubuWorld"
 	task :run do
 		sh "fubudocs run -o"
 	end
 	
-	desc "Tries to run the documentation projects in this solution in a 'watched' mode in Firefox"
+	desc "Runs the documentation projects in this solution in a 'watched' mode in Firefox"
 	task :run_firefox do
 		sh "fubudocs run --watched --browser Firefox"
 	end
 	
-	desc "Tries to run the documentation projects in this solution in a 'watched' mode in Firefox"
+	desc "Runs the documentation projects in this solution in a 'watched' mode in Firefox"
 	task :run_chrome do
 		sh "fubudocs run --watched --browser Chrome"
 	end
