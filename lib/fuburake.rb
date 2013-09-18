@@ -213,6 +213,12 @@ module FubuRake
 		
 	  end
 	end
+	
+	def dump_html(options)
+	  options[:version] = @build_number
+	  docs = FubuDocs.new(options)
+	  docs.dump_task
+	end
   end
   
   class MvcApp

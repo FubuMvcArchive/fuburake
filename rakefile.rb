@@ -23,6 +23,8 @@ solution = FubuRake::Solution.new do |sln|
 	})
 end
 
+solution.dump_html({})
+
 desc "Just a fake task for testing"
 task :fake do
 	puts "I'm the FAKE task running!"

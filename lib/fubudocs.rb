@@ -28,7 +28,7 @@ end
 
 
   class FubuDocs
-    attr_accessor :prefix, :branch
+    attr_accessor :prefix, :branch, :export_dir
   
     def initialize(options)
 		# :host, :include, :nested, :dump
@@ -151,6 +151,15 @@ end
 		
 		
 		return exportTaskName
+	end
+	
+	def dump_task
+	  dumpTask = Rake::Task.define_task "#{@prefix}:dump" do
+	    clean
+		@options[:dump] = true
+		export
+	  end
+	  dumpTask.add_description "Export the generated documentation to #{@export_dir} for local usage"
 	end
   end
   
