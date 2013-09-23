@@ -1,0 +1,56 @@
+<!-- Title: BottleServiceRunner and TopShelf -->
+<!-- Url: services -->
+
+<markdown>
+
+You can enable rake helpers for a project hosted by [BottleServiceRunner](https://github.com/DarthFubuMVC/bottles) and [TopShelf v3.0](http://topshelf-project.com) with the snippet below:
+
+<Snippet name="bottle-services" />
+
+Which will give you these rake tasks, assuming the default prefix 'service':
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>service:clean</td>
+      <td>Deletes any exploded bottle content in the directory</td>
+    </tr>
+    <tr>
+      <td>service:console</td>
+      <td>Starts a new command window and runs the service in a console</code>
+    </td>
+    </tr>
+    <tr>
+      <td>service:install</td>
+      <td>Installs the service locally</td>
+    </tr>
+    <tr>
+      <td>service:start</td>
+      <td>Attempts to start the named service if it is installed</code>
+    </td>
+    </tr>
+    <tr>
+      <td>service:stop</td>
+      <td>Attempts to stop the installed service</td>
+    </tr>
+	<tr>
+	  <td>service:uninstall</td>
+	  <td>Uninstalls the named service</td>
+	</tr>
+  </tbody>
+</table>
+
+
+See [TopShelf Command Line reference](http://docs.topshelf-project.com/en/latest/overview/commandline.html) for more description about the rake task options and how they relate to Windows service installation."
+
+<div class="alert alert-info">
+You will need to install the <a href="http://www.nuget.org/packages/BottleServiceRunner/">BottleServiceRunner nuget</a> on the project so that the <code>BottleServiceRunner.exe</code> is in the path of the project.
+</div>
+
+</markdown>

@@ -386,6 +386,10 @@ def cleanDirectory(dir)
     FileUtils.rm_rf dir;
     waitfor { !exists?(dir) }
   end
+  
+  if dir == 'artifacts'
+    Dir.mkdir 'artifacts'
+  end
 end
 
 def cleanFile(file)

@@ -175,3 +175,33 @@ end
   :dump => true
 })
 # ENDSAMPLE
+
+
+# SAMPLE: bottle-services
+@solution = FubuRake::Solution.new do |sln|
+
+end
+
+FubuRake::BottleServices.new({
+  # Use this option to use a different prefix for the 
+  # generated tasks
+  :prefix => "service", 
+  
+  # This option needs to point at the directory of the build
+  # products of the service project
+  :dir => "src/DiagnosticsHarness/bin/#{@solution.compilemode}", 
+  :name => 'ft-harness', 
+  :instance => 'something',
+  :user => 'user name',
+  :password => 'password',
+  :autostart => true,
+  :manual => true,
+  :disabled => true,
+  :delayed => true,
+  :local_service => true,
+  :network_service => true,
+  :interactive => true,
+  :description => 'something'
+  :manual => true
+})
+# ENDSAMPLE
