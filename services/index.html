@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <title>
-      FubuRake - Working with Bottles</title>
+      FubuRake - BottleServiceRunner and TopShelf</title>
     
 <meta charset="utf-8"/>
 <meta name="description" content="FubuDocs"/>
@@ -52,8 +52,8 @@
       <div id="nav-follow" class="navbar">
         <div class="navbar-inner">
           <div class="container">
-            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../bottles" data-key="bottles">Working with Bottles &#187;</a></li></ul>
-<ul class="nav" style="float:right"><li><a href="../custom" title="Custom Tasks">Previous</a></li><li><a href="../services" title="BottleServiceRunner and TopShelf">Next</a></li></ul>
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../services" data-key="services">BottleServiceRunner and TopShelf &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../bottles" title="Working with Bottles">Previous</a></li><li><a href="../fubumvc" title="FubuMVC Applications">Next</a></li></ul>
           </div>
         </div>
       </div>
@@ -73,67 +73,91 @@
 
             <br/>
             <h3 class="no-margin">Next</h3>
-<p><a href="../services" data-key="services">BottleServiceRunner and TopShelf</a></p>
+<p><a href="../fubumvc" data-key="fubu">FubuMVC Applications</a></p>
 <h3 class="no-margin">Previous</h3>
-<p><a href="../custom" data-key="custom">Custom Tasks</a></p>
+<p><a href="../bottles" data-key="bottles">Working with Bottles</a></p>
           </div>
           <div class="span9">
-            <h1 class="no-margin">Working with Bottles</h1>
+            <h1 class="no-margin">BottleServiceRunner and TopShelf</h1>
             <hr class="header-line"></hr>
 
-            
+            <!-- Title: BottleServiceRunner and TopShelf -->
+<!-- Url: services -->
+<p>You can enable rake helpers for a project hosted by <a href="https://github.com/DarthFubuMVC/bottles">BottleServiceRunner</a> and <a href="http://topshelf-project.com">TopShelf v3.0</a> with the snippet below:</p>
 
-FubuRake includes support for working with Bottle projects inside your build script, specifically to package content into csproj files as a prerequisite to compilation.
-
-Assembly bottle projects function by "smuggling" content like views, scripts, and stylesheets inside zip files as embedded resource files within assemblies.  Before compiling a project that acts as an assembly bottle, you need to execute the <code>bottles assembly-pak</code> command against each project in your solution that acts as a bottle.
-
-<section><h4 id="auto" class="section-header">Auto Bottling</h4>
-If no projects are explicitly configured as assembly bottles as in the following section, FubuRake will look for the presence of any project folder with a <code>.package-manifest</code> project and automatically create a task to "bottle up" the content in that project and make that task a dependency to <code>:compile</code>.</section>
-
-
-TODO: Add a link to Bottles
-
-<section><h4 id="explicit" class="section-header">Explicitly Specifying Bottles</h4>
-
-You can explicitly tell FubuRake which projects should be treated as assembly bottles using the syntax shown below:
-
-<pre data-linenums="131" class="prettyprint lang-rb">
+<pre data-linenums="181" class="prettyprint lang-rb">
 @solution = FubuRake::Solution.new do |sln|
-	# Other options
-	
-	sln.assembly_bottle &#39;FubuMVC.Diagnostics&#39;
+
 end
+
+FubuRake::BottleServices.new({
+  # Use this option to use a different prefix for the 
+  # generated tasks
+  :prefix =&gt; &quot;service&quot;, 
+
+  # This option needs to point at the directory of the build
+  # products of the service project
+  :dir =&gt; &quot;src/DiagnosticsHarness/bin/#{@solution.compilemode}&quot;, 
+  :name =&gt; &#39;ft-harness&#39;, 
+  :instance =&gt; &#39;something&#39;,
+  :user =&gt; &#39;user name&#39;,
+  :password =&gt; &#39;password&#39;,
+  :autostart =&gt; true,
+  :manual =&gt; true,
+  :disabled =&gt; true,
+  :delayed =&gt; true,
+  :local_service =&gt; true,
+  :network_service =&gt; true,
+  :interactive =&gt; true,
+  :description =&gt; &#39;something&#39;
+  :manual =&gt; true
+})
 </pre>
 
-If you were to run <code>rake --prereq</code> on the sample above, you'd see:
+<p>Which will give you these rake tasks, assuming the default prefix 'service':</p>
 
-<pre>
-rake bottle_fubumvc_diagnostics
-rake ci
-    default
-    ripple:history
-    ripple:package
-rake clean
-rake compile
-    clean
-    version
-    ripple:restore
-    docs:bottle
-    bottle_fubumvc_diagnostics
-</pre>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>service:clean</td>
+      <td>Deletes any exploded bottle content in the directory</td>
+    </tr>
+    <tr>
+      <td>service:console</td>
+      <td>Starts a new command window and runs the service in a console</code>
+    </td>
+    </tr>
+    <tr>
+      <td>service:install</td>
+      <td>Installs the service locally</td>
+    </tr>
+    <tr>
+      <td>service:start</td>
+      <td>Attempts to start the named service if it is installed</code>
+    </td>
+    </tr>
+    <tr>
+      <td>service:stop</td>
+      <td>Attempts to stop the installed service</td>
+    </tr>
+    <tr>
+      <td>service:uninstall</td>
+      <td>Uninstalls the named service</td>
+    </tr>
+  </tbody>
+</table>
 
-<section><h4 id="disable" class="section-header">Disabling Bottling Altogether</h4>
-If necessary, you can completely opt out of auto-bottling with the following option:
+<p>See <a href="http://docs.topshelf-project.com/en/latest/overview/commandline.html">TopShelf Command Line reference</a> for more description about the rake task options and how they relate to Windows service installation."</p>
 
-<pre data-linenums="141" class="prettyprint lang-rb">
-@solution = FubuRake::Solution.new do |sln|
-	# Other options
-
-	sln.bottles_enabled = false # need to do the zip bottling in tests, so don&#39;t do it here
-end
-</pre></section>
-
-
+<div class="alert alert-info">
+You will need to install the <a href="http://www.nuget.org/packages/BottleServiceRunner/">BottleServiceRunner nuget</a> on the project so that the <code>BottleServiceRunner.exe</code> is in the path of the project.
+</div>
 
           </div>
         </div>

@@ -76,3 +76,15 @@ text-align: right;
 .no-release {
     max-width: 175px;
 }
+
+.authoring {
+    background-color: black;
+    color: white;
+    font-weight: normal;
+    padding: 3px;
+    margin-bottom: 2px;
+}
+
+.authoring a {
+    color: white;
+}

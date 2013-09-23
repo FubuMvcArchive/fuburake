@@ -109,12 +109,16 @@ dl.dl-horizontal dt, dl.dl-horizontal dd {
 	text-align: left;
 }
 dl.dl-horizontal dt {
-	width: 100px;
+	width: 200px;
 }
 dl.dl-horizontal dd {
 	margin-left: 0px;
-	text-align: right;
 }
+dl.dl-horizontal dd input {
+    width: 500px;
+}
+
+
 pre {
 	margin-bottom: 40px;
 	padding: 19px;

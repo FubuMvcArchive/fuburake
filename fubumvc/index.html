@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <title>
-      FubuRake - Working with Bottles</title>
+      FubuRake - FubuMVC Applications</title>
     
 <meta charset="utf-8"/>
 <meta name="description" content="FubuDocs"/>
@@ -52,8 +52,8 @@
       <div id="nav-follow" class="navbar">
         <div class="navbar-inner">
           <div class="container">
-            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../bottles" data-key="bottles">Working with Bottles &#187;</a></li></ul>
-<ul class="nav" style="float:right"><li><a href="../custom" title="Custom Tasks">Previous</a></li><li><a href="../services" title="BottleServiceRunner and TopShelf">Next</a></li></ul>
+            <ul class="nav"><li><a href=".." data-key="index">FubuRake &#187;</a></li><li class="active"><a href="../fubumvc" data-key="fubu">FubuMVC Applications &#187;</a></li></ul>
+<ul class="nav" style="float:right"><li><a href="../services" title="BottleServiceRunner and TopShelf">Previous</a></li></ul>
           </div>
         </div>
       </div>
@@ -72,68 +72,90 @@
             </h3>
 
             <br/>
-            <h3 class="no-margin">Next</h3>
+            <h3 class="no-margin">Previous</h3>
 <p><a href="../services" data-key="services">BottleServiceRunner and TopShelf</a></p>
-<h3 class="no-margin">Previous</h3>
-<p><a href="../custom" data-key="custom">Custom Tasks</a></p>
           </div>
           <div class="span9">
-            <h1 class="no-margin">Working with Bottles</h1>
+            <h1 class="no-margin">FubuMVC Applications</h1>
             <hr class="header-line"></hr>
 
-            
+            <!-- Title: FubuMVC Applications -->
+<!-- Url: fubumvc -->
+<p>To enable <a href="http://katanaproject.codeplex.com/documentation">Katana hosting</a> for either FubuMVC or FubuTransportation applications, simple use the <code>FubuRake::MvcApp</code> helper like this snippet:</p>
 
-FubuRake includes support for working with Bottle projects inside your build script, specifically to package content into csproj files as a prerequisite to compilation.
-
-Assembly bottle projects function by "smuggling" content like views, scripts, and stylesheets inside zip files as embedded resource files within assemblies.  Before compiling a project that acts as an assembly bottle, you need to execute the <code>bottles assembly-pak</code> command against each project in your solution that acts as a bottle.
-
-<section><h4 id="auto" class="section-header">Auto Bottling</h4>
-If no projects are explicitly configured as assembly bottles as in the following section, FubuRake will look for the presence of any project folder with a <code>.package-manifest</code> project and automatically create a task to "bottle up" the content in that project and make that task a dependency to <code>:compile</code>.</section>
-
-
-TODO: Add a link to Bottles
-
-<section><h4 id="explicit" class="section-header">Explicitly Specifying Bottles</h4>
-
-You can explicitly tell FubuRake which projects should be treated as assembly bottles using the syntax shown below:
-
-<pre data-linenums="131" class="prettyprint lang-rb">
+<pre data-linenums="181" class="prettyprint lang-rb">
 @solution = FubuRake::Solution.new do |sln|
-	# Other options
-	
-	sln.assembly_bottle &#39;FubuMVC.Diagnostics&#39;
+
 end
+
+FubuRake::BottleServices.new({
+  # Use this option to use a different prefix for the 
+  # generated tasks
+  :prefix =&gt; &quot;service&quot;, 
+
+  # This option needs to point at the directory of the build
+  # products of the service project
+  :dir =&gt; &quot;src/DiagnosticsHarness/bin/#{@solution.compilemode}&quot;, 
+  :name =&gt; &#39;ft-harness&#39;, 
+  :instance =&gt; &#39;something&#39;,
+  :user =&gt; &#39;user name&#39;,
+  :password =&gt; &#39;password&#39;,
+  :autostart =&gt; true,
+  :manual =&gt; true,
+  :disabled =&gt; true,
+  :delayed =&gt; true,
+  :local_service =&gt; true,
+  :network_service =&gt; true,
+  :interactive =&gt; true,
+  :description =&gt; &#39;something&#39;
+  :manual =&gt; true
+})
 </pre>
 
-If you were to run <code>rake --prereq</code> on the sample above, you'd see:
+<p>Which will give you these rake tasks using <em>music</em> as the task prefix from the snippet above:</p>
 
-<pre>
-rake bottle_fubumvc_diagnostics
-rake ci
-    default
-    ripple:history
-    ripple:package
-rake clean
-rake compile
-    clean
-    version
-    ripple:restore
-    docs:bottle
-    bottle_fubumvc_diagnostics
-</pre>
+<p>rake harness:alias      # Add the alias for src/DiagnosticsHarness
+rake harness:chrome     # run the application with Katana hosting and 'watc...
+rake harness:firefox    # run the application with Katana hosting and 'watc...
+rake harness:restart    # touch the web.config file to force ASP.Net hostin...
+rake harness:run        # run the application with Katana hosting</p>
 
-<section><h4 id="disable" class="section-header">Disabling Bottling Altogether</h4>
-If necessary, you can completely opt out of auto-bottling with the following option:
-
-<pre data-linenums="141" class="prettyprint lang-rb">
-@solution = FubuRake::Solution.new do |sln|
-	# Other options
-
-	sln.bottles_enabled = false # need to do the zip bottling in tests, so don&#39;t do it here
-end
-</pre></section>
-
-
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>music:alias</td>
+      <td>Creates a Bottles alias for the application directory</td>
+    </tr>
+    <tr>
+      <td>music:chrome</td>
+      <td>Runs the application in Katana and opens the default page in Chrome in _watched_ mode</code>
+    </td>
+    </tr>
+    <tr>
+      <td>music:firefox</td>
+      <td>Runs the application in Katana and opens the default page in Firefox in _watched_ mode</td>
+    </tr>
+    <tr>
+      <td>service:start</td>
+      <td>Attempts to start the named service if it is installed</code>
+    </td>
+    </tr>
+    <tr>
+      <td>music:restart</td>
+      <td>Touches the web.config file of the application to force the application to recycle if running under IIS/IISExpress</td>
+    </tr>
+    <tr>
+      <td>music:run</td>
+      <td>Runs the application in Katana and opens the default url in the default browser</td>
+    </tr>
+  </tbody>
+</table>
 
           </div>
         </div>
