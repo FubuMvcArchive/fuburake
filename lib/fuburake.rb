@@ -259,6 +259,107 @@ module FubuRake
   end
   
   
+    class BottleServices
+	  def initialize(options)
+	    @directory = options[:dir]
+	    @prefix = options.fetch(:prefix, 'service')
+		@command = File.join(@directory, 'BottleServiceRunner')
+	  
+		consoleTask = Rake::Task.define_task "#{@prefix}:console" do
+		  sh "start #{@command}"
+		end
+		consoleTask.add_description "Run service in console at #{@directory}"
+	  
+	    to_task 'install', to_install_args(options), "Install the service locally"
+        to_task 'start', to_start_stop_args('start', options), "Start the service locally"
+		to_task 'stop', to_start_stop_args('stop', options), "Stop the service locally"
+		to_task 'uninstall', to_start_stop_args('uninstall', options), "Stop the service locally"
+		
+		cleanTask = Rake::Task.define_task "#{@prefix}:clean" do
+		  dir = File.join(@directory, 'fubu-content')
+		  cleanDirectory dir
+		end
+		cleanTask.add_description "Cleans out any exploded bottle content at fubu-content"
+	  end
+	  
+	  def to_start_stop_args(verb, options)
+	    args = "#{verb}"
+		
+		if (options[:name] != nil)
+		  args += " -servicename:#{options[:name]}"
+		end
+		
+		if (options[:instance] != nil)
+		  args += " -i:#{options[:instance]}"
+		end
+		
+		return args
+	  end
+	  
+	  def to_install_args(options)
+	    args = "install";
+		
+		if (options[:name] != nil)
+		  args += " -servicename:#{options[:name]}"
+		end
+		
+		if (options[:instance] != nil)
+		  args += " -i:#{options[:instance]}"
+		end
+		
+		if (options[:user] != nil)
+		  args += " -u:#{options[:user]}"
+		end
+	
+		if (options[:password] != nil)
+		  args += " -p:#{options[:password]}"
+		end
+
+	    if (options[:autostart] == true)
+		  args += " --autostart"
+		end
+		
+		if (options[:manual] == true)
+		  args += " --manual"
+		end
+	
+		if (options[:disabled] == true)
+		  args += " --disabled"
+		end
+
+		if (options[:delayed] == true)
+		  args += " --delayed"
+		end
+		
+		if (options[:local_service] == true)
+		  args += " --localservice"
+		end
+		
+		if (options[:network_service] == true)
+		  args += " --networkservice"
+		end
+		
+		if (options[:interactive] == true)
+		  args += " --interactive"
+		end
+		
+		if (options[:description] != nil)
+		  args += ' -d:"' + options[:description] + "'"
+		end
+		
+		return args
+	  end
+	  
+	  def to_task(name, args, description)
+	    task = Rake::Task.define_task "#{@prefix}:#{name}" do
+		  sh "#{@command} #{args}"
+	    end
+		
+	    task.add_description description
+	    return task
+	  end
+    end
+    
 end
 
 
