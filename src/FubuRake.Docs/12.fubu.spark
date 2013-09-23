@@ -1,0 +1,49 @@
+<!-- Title: FubuMVC Applications -->
+<!-- Url: fubumvc -->
+
+<markdown>
+
+To enable [Katana hosting](http://katanaproject.codeplex.com/documentation) for either FubuMVC or FubuTransportation applications, simple use the <code>FubuRake::MvcApp</code> helper like this snippet:
+
+<Snippet name="MvcApp" />
+
+Which will give you these rake tasks using _music_ as the task prefix from the snippet above:
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>music:alias</td>
+      <td>Creates a Bottles alias for the application directory</td>
+    </tr>
+    <tr>
+      <td>music:chrome</td>
+      <td>Runs the application in Katana and opens the default page in Chrome in _watched_ mode</code>
+    </td>
+    </tr>
+    <tr>
+      <td>music:firefox</td>
+      <td>Runs the application in Katana and opens the default page in Firefox in _watched_ mode</td>
+    </tr>
+    <tr>
+      <td>service:start</td>
+      <td>Attempts to start the named service if it is installed</code>
+    </td>
+    </tr>
+    <tr>
+      <td>music:restart</td>
+      <td>Touches the web.config file of the application to force the application to recycle if running under IIS/IISExpress</td>
+    </tr>
+	<tr>
+	  <td>music:run</td>
+	  <td>Runs the application in Katana and opens the default url in the default browser</td>
+	</tr>
+  </tbody>
+</table>
+
+</markdown>

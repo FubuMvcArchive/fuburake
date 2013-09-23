@@ -62,7 +62,7 @@ end
 	
 	def clean
 	  cleanDirectory @export_dir
-	  Dir.delete @export_dir
+	  Dir.delete @export_dir unless !Dir.exists?(@export_dir)
 	end
 	
 	def create_branch

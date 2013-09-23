@@ -205,3 +205,7 @@ FubuRake::BottleServices.new({
   :manual => true
 })
 # ENDSAMPLE
+
+# SAMPLE: MvcApp
+FubuRake::MvcApp.new({:directory => 'src/Music', :name => 'Music'})
+# ENDSAMPLE
