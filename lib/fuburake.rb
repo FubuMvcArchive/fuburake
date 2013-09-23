@@ -280,10 +280,11 @@ def waitfor(&block)
 end
 
 def cleanDirectory(dir)
-  puts 'Cleaning directory ' + dir
-  FileUtils.rm_rf dir;
-  waitfor { !exists?(dir) }
-  Dir.mkdir dir
+  if exists?(dir)
+    puts 'Cleaning directory ' + dir
+    FileUtils.rm_rf dir;
+    waitfor { !exists?(dir) }
+  end
 end
 
 def cleanFile(file)
