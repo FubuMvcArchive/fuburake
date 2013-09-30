@@ -42,9 +42,10 @@ module FubuRake
 	  end
 	end
   end
-end
-
-class NUnitRunner
+  
+  
+  
+  class NUnitRunner
 	include FileTest
 
 	def initialize(paths)
@@ -91,5 +92,10 @@ class NUnitRunner
 	    executeTests tests
 	  end
 	end
+  end
+  
+  
 end
+
+
 

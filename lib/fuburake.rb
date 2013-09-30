@@ -9,7 +9,13 @@ require_relative 'ripple'
 require_relative 'assembly_info'
 require_relative 'bottles'
 
-load "VERSION.txt"
+if File.exists?("VERSION.txt")
+  load "VERSION.txt"
+elsif ENV["BUILD_VERSION"] != nil
+  BUILD_VERSION = ENV["BUILD_VERSION"]
+else
+  BUILD_VERSION = "0.0.1"
+end
 
 module FubuRake
   class SolutionTasks
