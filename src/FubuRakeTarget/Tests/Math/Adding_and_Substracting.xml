@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Test name="Adding and Substracting" lifecycle="Regression">
+  <Math>
+    <Adding isStep="True" x="5" y="6" returnValue="11" />
+  </Math>
+</Test>

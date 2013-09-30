@@ -360,6 +360,72 @@ module FubuRake
 	  end
     end
     
+	
+	class Storyteller
+	  def initialize(options)
+	    # :path
+		# :compilemode -- take it from @solution.compiletarget
+		# :results
+		# :workspace
+		# :profile
+		# :title
+		# :source
+		# :prefix
+		# :st_path
+		# :specs
+		
+		@directory = options[:dir]
+	    @prefix = options.fetch(:prefix, 'st')
+		@src = options.fetch(:source, 'src')
+		@results = options.fetch(:results, 'results.htm')
+		@st_path = options.fetch(:st_path, "#{@src}/packages/Storyteller2/tools")
+		@title = options.fetch(:title, 'Storyteller Specs')
+	    @specs = options.fetch(:specs, 'specs')
+
+	    to_task 'run', 'ST.exe', "run #{to_args(options, @results)}", "Run the Storyteller tests for #{@directory}"
+		to_task 'specs', 'ST.exe', "specs #{to_args(options, @specs)} --title \"#{@title}\"", "dump the specs for Storyteller tests at #{@directory}"
+	    
+		
+		openTask = Rake::Task.define_task "#{@prefix}:open" do
+		  tool = 'StorytellerUI.exe'
+		  cmd = "start #{File.join(@st_path, tool)} #{to_args(options, @results)}"
+		  puts "Opening the Storyteller UI to #{@directory}"
+		  sh cmd
+		end
+		openTask.add_description "Open the Storyteller UI for tests at #{@directory}"
+		openTask.enhance [:compile]
+	  end
+	  
+	  
+	  def to_task(name, tool, args, description)
+	    task = Rake::Task.define_task "#{@prefix}:#{name}" do
+		  sh "#{File.join(@st_path, tool)} #{args}"
+	    end
+		
+	    task.add_description description
+		task.enhance [:compile]
+		
+	    return task
+	  end
+	  
+	  def to_args(options, output)
+	    args = "#{options[:path]} #{output}"
+		
+		if (options[:compilemode] != nil)
+		  args += " --compile #{options[:compilemode]}"
+		end
+		
+		if (options[:workspace] != nil)
+		  args += " --workspace #{options[:workspace]}"
+		end
+		
+		if (options[:profile] != nil)
+		  args += " --profile #{options[:profile]}"
+		end
+		
+		return args
+	  end
+	end
 end
 
 

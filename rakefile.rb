@@ -11,6 +11,7 @@ solution = FubuRake::Solution.new do |sln|
 	sln.fubudocs_enabled = true
 	
 	sln.ci_steps = [:create_gem, :archive_gem]
+	sln.defaults = ["st:run", "st:specs"]
 	
 	sln.compile_step :other_compile, 'src/FubuRake.sln'
 	
@@ -24,6 +25,11 @@ solution = FubuRake::Solution.new do |sln|
 end
 
 solution.dump_html({})
+
+FubuRake::Storyteller.new({
+  :path => 'src/FubuRakeTarget',
+  :compilemode => solution.compilemode
+})
 
 desc "Just a fake task for testing"
 task :fake do
