@@ -381,10 +381,14 @@ module FubuRake
 		@st_path = options.fetch(:st_path, "#{@src}/packages/Storyteller2/tools")
 		@title = options.fetch(:title, 'Storyteller Specs')
 	    @specs = options.fetch(:specs, 'specs')
+		@suites = options.fetch(:suites, [])
 
 	    to_task 'run', 'ST.exe', "run #{to_args(options, @results)}", "Run the Storyteller tests for #{@directory}"
 		to_task 'specs', 'ST.exe', "specs #{to_args(options, @specs)} --title \"#{@title}\"", "dump the specs for Storyteller tests at #{@directory}"
 	    
+		@suites.each do |s|
+			to_task "run:#{s.downcase}", 'ST.exe', "run #{to_args(options, @results)} -w #{s}", "Run the Storyteller tests for suite #{s}"
+		end
 		
 		openTask = Rake::Task.define_task "#{@prefix}:open" do
 		  tool = 'StorytellerUI.exe'
