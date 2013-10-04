@@ -1,4 +1,4 @@
-﻿<!--Title: Custom Tasks-->
+<!--Title: Custom Tasks-->
 
 You will frequently need to add custom rake tasks that need to be included in either the default rake task or run in continuous integration.  FubuRake has some helpers for both of these use cases.
 

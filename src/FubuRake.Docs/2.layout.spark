@@ -1,4 +1,4 @@
-﻿<!--Title: Codebase Layout-->
+<!--Title: Codebase Layout-->
 
 <markdown>
 Over the years, the Fubu projects have settled on the following structure for code repositories.  Related tools like <ProjectLink name="FubuDocs" /> and <ProjectLink name="Ripple"/> also depend on these folder structures.

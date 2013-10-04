@@ -209,3 +209,12 @@ FubuRake::BottleServices.new({
 # SAMPLE: MvcApp
 FubuRake::MvcApp.new({:directory => 'src/Music', :name => 'Music'})
 # ENDSAMPLE
+
+
+# SAMPLE: Storyteller
+FubuRake::Storyteller.new({
+  :path => 'src/FubuRakeTarget',
+  :compilemode => solution.compilemode,
+  :suites => ['Math']
+})
+# ENDSAMPLE

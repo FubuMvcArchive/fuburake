@@ -1,4 +1,4 @@
-﻿<!--Title: Cleaning before new Builds-->
+<!--Title: Cleaning before new Builds-->
 
 A typical task in any build automation strategy is to _clean_ out an existing directory (test results, artifacts, build results) before starting a new build.  FubuRake supports this by building a <code>:clean</code> task for you that deletes all the files and child folders in the directories that you declare like the following sample:
 

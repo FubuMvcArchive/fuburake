@@ -1,4 +1,4 @@
-﻿<!--Title: Tasks-->
+<!--Title: Tasks-->
 
 <Section title="Sample" id="sample">
   Assuming that you use the !{this.LinkToTopic('layout', 'standard Fubu project layout')} for your code repository, you can take advantage of the fuburake gem to create a fully functional build script with [Rake](http://rake.rubyforge.org/) like so:

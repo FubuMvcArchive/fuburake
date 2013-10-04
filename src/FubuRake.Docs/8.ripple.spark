@@ -1,4 +1,4 @@
-﻿<!--Title: Ripple Integration-->
+<!--Title: Ripple Integration-->
 
 Integrating <ProjectLink name="Ripple"/> via FubuRake is purely declarative, just set the <code>enable_ripple</code> accessor to true as in the following code:
 

@@ -1,0 +1,102 @@
+<!--Title: Storyteller2 Integration-->
+<!--Url: storyteller2-integration-->
+
+<markdown>
+
+To enable <ProjectLink name="Storyteller"/> integration for a specific project folder, use the syntax shown below:
+
+<Snippet name="Storyteller" />
+
+<Info>You will need a reference to the Storyteller2 nuget in the testing project.  These tasks will not work with the original Storyteller 1.0.</Info>
+
+The snippet above will generate these tasks for you:
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>st:open</td>
+      <td>Opens the Storyteller UI to the designated project</td>
+    </tr>
+    <tr>
+      <td>st:run</td>
+      <td>Runs the Storyteller tests for the designated project.  This is what you would typically use on your CI server.</code>
+    </td>
+    </tr>
+    <tr>
+      <td>st:run:math</td>
+      <td>In the example above, this task will run only the tests in the 'Math' suite for finer grained test runs.</td>
+    </tr>
+    <tr>
+      <td>st:specs</td>
+      <td>Dumps all the specifications in the Storyteller project to html for documentation purposes</code>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<Info>You can use more than one set of Storyteller tasks as long as the </Info>
+
+
+The options for the <code>FubuRake::Storyteller</code> declaration are:
+
+<table class="table">
+  <tbody>
+    <tr>
+	  <td>:path</td>
+	  <td>The relative path to the Storyteller2 testing project in your code tree</td>
+	</tr>
+    <tr>
+	  <td>:compilemode</td>
+	  <td>Specify the compilation target (debug/release/etc.) where Storyteller2 should look for the compiled binaries</td>
+	</tr>
+	<tr>
+	  <td>:prefix</td>
+	  <td>Prefix for all the related tasks.  The default is 'st'.  Please note that you can declare more than one set of Storyteller2 tasks as long as the prefix is different.</td>
+	</tr>
+	<tr>
+	  <td>:src</td>
+	  <td>Override where FubuRake looks for the source code.  The default is 'src'</td>
+	</tr>
+	<tr>
+	  <td>:results</td>
+	  <td>The file path where you want Storyteller result summaries written to.  The default is 'results.htm'</td>
+	</tr>
+	<tr>
+	  <td>:st_path</td>
+	  <td>The path to the directory containing the Storyteller2 executables.  The default is "[src]/packages/Storyteller2/tools", which is based on the Nuget installation assuming that you are using Ripple for dependency management.</td>
+	</tr>
+	<tr>
+	  <td>:title</td>
+	  <td>The title for the html dump of the specifications.  The default is a very unsexy 'Storyteller Specs'</td>
+	</tr>
+	<tr>
+	  <td>:specs</td>
+	  <td>The folder where you'd like the html dump of the specifications to be written.  The default is 'specs'</td>
+	</tr>
+	<tr>
+	  <td>:suites</td>
+	  <td>An array of suite names that you'd like to have a separate task for running one suite at a time.</td>
+	</tr>
+	<tr>
+	  <td>:profile</td>
+	  <td>Optionally, sets the --profile flag when opening or running Storyteller projects.  The best example is switching between Firefox, Chrome, or PhantomJS as the test browser when doing automated testing against a web browser.</td>
+	</tr>
+	<tr>
+		<td>:workspace</td>
+		<td>Optionally limits the test selection to a single root suite of the Storyteller project.  The default is empty.</td>
+	</tr>
+  </tbody>
+</table>
+
+
+
+
+</markdown>
+

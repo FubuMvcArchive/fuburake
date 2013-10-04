@@ -1,4 +1,4 @@
-﻿<!--Title: NUnit Tests-->
+<!--Title: NUnit Tests-->
 
   <Section title="Auto Discovery" id="auto">
 Without any explicit configuration of testing projects, FubuRake will create a <code>:unit_test</code> task that trys to run NUnit against all projects in the code tree that are suffixed with either ".Tests" or ".Testing".

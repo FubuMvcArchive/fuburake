@@ -1,4 +1,4 @@
-﻿<!--Title: Assembly Versioning-->
+<!--Title: Assembly Versioning-->
 
 Fubu projects generally write out a <code>CommonAssemblyInfo.cs</code> file into the <code>src</code> directory as a precursor to compilation in their build scripts to generate shared version and copyright information across assemblies.  The various *.csproj files should link to this shared file to embed version information into assemblies.
 

@@ -1,4 +1,6 @@
-﻿// SAMPLE: CommonAssemblyInfo
+﻿/*
+
+// SAMPLE: CommonAssemblyInfo
 using System.Reflection;
 using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("1.1.0.51709")]
@@ -9,3 +11,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.1.0.51709")]
 [assembly: AssemblyInformationalVersion("1.1.0.0")]
 // ENDSAMPLE
+
+
+
+
+*/

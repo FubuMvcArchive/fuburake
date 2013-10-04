@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,7 +40,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonAssemblyInfo.cs" />
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="FakeAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -61,20 +64,6 @@
     <EmbeddedResource Include="pak-Config.zip" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="0.tasks.spark" />
-    <None Include="1.layout.spark" />
-    <None Include="2.options.spark" />
-    <None Include="3.compilation.spark" />
-    <None Include="4.clean.spark" />
-    <None Include="5.version.spark">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="6.nunit.spark" />
-    <None Include="7.ripple.spark" />
-    <None Include="8.fubudocs.spark" />
-    <None Include="9.custom.spark">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="fuburake.rb" />
     <None Include="rakefile.rb" />
   </ItemGroup>
