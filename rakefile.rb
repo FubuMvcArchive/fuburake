@@ -68,7 +68,7 @@ spec = Gem::Specification.new do |s|
   
   s.add_runtime_dependency "ripple-cli",["~> 2.0"]
   s.add_runtime_dependency "fubudocs",[">= 0.5"]
-  s.add_runtime_dependency "bottles",["~> 1.0"]
+  s.add_runtime_dependency "bottles",[">= 1.1"]
   
   s.summary     = 'Rake tasks for fubu related projects'
   s.description = 'Rake helpers for FubuDocs, ripple, NUnit, and cross platform fubu project development'
