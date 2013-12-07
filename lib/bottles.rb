@@ -1,20 +1,21 @@
+# vim: tabstop=4:softtabstop=4:shiftwidth=4:noexpandtab
 module FubuRake
-  class AssemblyBottle
-	def initialize(project)
-		@project = project
-	end
-	
-	def create(options)
-	  cleaned_name = @project.gsub('.', '_').downcase
+	class AssemblyBottle
+		def initialize(project)
+			@project = project
+		end
 
-	  name = "bottle_#{cleaned_name}"
-	  task = Rake::Task.define_task name do
-		sh "bottles assembly-pak #{options[:source]}/#{@project} -p #{@project}.csproj"
+		def create(options)
+			cleaned_name = @project.gsub('.', '_').downcase
 
-	  end
+			name = "bottle_#{cleaned_name}"
+			task = Rake::Task.define_task name do
+			sh "bottles assembly-pak #{options[:source]}/#{@project} -p #{@project}.csproj"
+
+			end
 		
-	  task.add_description "Assembly bottle packing for #{@project}"
-	  Rake::Task[:compile].enhance [name]
+			task.add_description "Assembly bottle packing for #{@project}"
+			Rake::Task[:compile].enhance [name]
+		end
 	end
-  end
 end
