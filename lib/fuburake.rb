@@ -391,21 +391,26 @@ module FubuRake
 			@suites.each do |s|
 				to_task "run:#{s.downcase}", 'ST.exe', "run #{to_args(options, @results)} -w #{s}", "Run the Storyteller tests for suite #{s}"
 			end
-		
-			openTask = Rake::Task.define_task "#{@prefix}:open" do
-				tool = 'StorytellerUI.exe'
-				cmd = "start #{File.join(@st_path, tool)} #{to_args(options, @results)}"
-				puts "Opening the Storyteller UI to #{@directory}"
-				sh cmd
+
+			if !Platform.is_nix
+				# StoryTellerUI.exe is a WPF application which is 
+				# not supported on nix and therefore setting up the task
+				# is pointless.
+				openTask = Rake::Task.define_task "#{@prefix}:open" do
+					tool = 'StoryTellerUI.exe'
+					cmd = Platform.runtime("#{File.join(@st_path, tool)}") + " #{to_args(options, @results)}"
+					puts "Opening the Storyteller UI to #{@directory}"
+					sh cmd
+				end
+				openTask.add_description "Open the Storyteller UI for tests at #{@directory}"
+				openTask.enhance [:compile]
 			end
-			openTask.add_description "Open the Storyteller UI for tests at #{@directory}"
-			openTask.enhance [:compile]
 		end
 		
 		
 		def to_task(name, tool, args, description)
 			task = Rake::Task.define_task "#{@prefix}:#{name}" do
-				sh "#{File.join(@st_path, tool)} #{args}"
+				sh Platform.runtime("#{File.join(@st_path, tool)}") + " #{args}"
 			end
 		
 			task.add_description description
