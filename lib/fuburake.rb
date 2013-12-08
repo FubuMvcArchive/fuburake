@@ -265,10 +265,10 @@ module FubuRake
 		def initialize(options)
 			@directory = options[:dir]
 			@prefix = options.fetch(:prefix, 'service')
-			@command = File.join(@directory, 'BottleServiceRunner')
+			@command = File.join(@directory, 'BottleServiceRunner.exe')
 		
 			consoleTask = Rake::Task.define_task "#{@prefix}:console" do
-				sh "start #{@command}"
+				sh "#{Platform.start(Platform.runtime(@command))}"
 			end
 			consoleTask.add_description "Run service in console at #{@directory}"
 		
