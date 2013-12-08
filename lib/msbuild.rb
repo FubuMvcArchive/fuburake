@@ -13,7 +13,7 @@ module FubuRake
 			compileTask.add_description "Compiles the solution #{tasks.compile[:solutionfile]}"
 	  
 			openTask = Rake::Task.define_task :sln do
-				Platform.start("#{tasks.compile[:solutionfile]}")
+				Platform.open("#{tasks.compile[:solutionfile]}")
 			end
 			openTask.add_description "Open solution #{tasks.compile[:solutionfile]}"
 
