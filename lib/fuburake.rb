@@ -139,7 +139,7 @@ module FubuRake
 					if project.index('.Docs') == nil
 						proj_file = "#{dir}/#{project}.csproj"
 						if File.exists?(proj_file)
-							tasks.bottles << FubuRake::AssemblyBottle.new(project)
+							tasks.assembly_bottle File.basename(project)
 						end
 					end
 				end
