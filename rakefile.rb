@@ -66,7 +66,7 @@ spec = Gem::Specification.new do |s|
   
   s.license = 'Apache 2'
   
-  s.add_runtime_dependency "ripple-cli",["~> 2.0"]
+  s.add_runtime_dependency "ripple-cli",[">= 2.0"]
   s.add_runtime_dependency "fubudocs",[">= 0.5"]
   s.add_runtime_dependency "bottles",[">= 1.1"]
   
