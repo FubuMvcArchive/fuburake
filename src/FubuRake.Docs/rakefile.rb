@@ -207,7 +207,15 @@ FubuRake::BottleServices.new({
 # ENDSAMPLE
 
 # SAMPLE: MvcApp
-FubuRake::MvcApp.new({:directory => 'src/Music', :name => 'Music'})
+FubuRake::MvcApp.new({
+	:directory => 'src/Music', 
+	:name => 'Music',
+	
+	# this is only necessary if the config file
+	# name is something besides app.config or
+	# web.config
+	:config => 'Music.dll.config' 
+})
 # ENDSAMPLE
 
 

@@ -228,8 +228,12 @@ module FubuRake
 			cleaned_name = options[:name].gsub('.', '_').downcase
 			run_args = "--directory #{options[:directory]}"
 		
+			if options.has_key?(:config)
+				run_args += " --config #{options[:config]}"
+			end
+		
 			if options.has_key?(:application)
-				run_args += " --application #{options[:application]}
+				run_args += " --application #{options[:application]}"
 			end
 		
 			if options.has_key?(:build)
