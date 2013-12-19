@@ -35,8 +35,6 @@ module Platform
 		else
 			command = "start #{command}"
 		end
-
-		sh command
 	end
 
 	def self.runtime(cmd, runtime='v4.0.30319')
