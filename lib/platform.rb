@@ -30,11 +30,12 @@ module Platform
 	def self.start(command)
 		if self.is_linux
 			command = "xterm -e '#{command}'"
-		elsif self.is_darmin
+		elsif self.is_darwin
 			command = "Terminal -e '#{command}'"
 		else
-			command = "start '#{command}'"
+			command = "start #{command}"
 		end
+
 		sh command
 	end
 

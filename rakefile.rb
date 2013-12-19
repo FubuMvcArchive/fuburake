@@ -37,6 +37,11 @@ task :fake do
 	puts "I'm the FAKE task running!"
 end
 
+
+FubuRake::BottleServices.new({
+  :dir => "src/FakeService/bin/#{solution.compilemode}"
+})
+
 desc "Archives the gem in CI"
 task :archive_gem => [:create_gem] do
 	copyOutputFiles "pkg", "*.gem", "artifacts"
