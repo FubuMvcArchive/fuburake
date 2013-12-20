@@ -321,6 +321,10 @@ module FubuRake
 				args += " -p:#{options[:password]}"
 			end
 
+			if (options[:sudo] == true)
+				args += " --sudo"
+			end
+
 			if (options[:autostart] == true)
 				args += " --autostart"
 			end

@@ -194,6 +194,7 @@ FubuRake::BottleServices.new({
   :instance => 'something',
   :user => 'user name',
   :password => 'password',
+  :sudo => true,
   :autostart => true,
   :manual => true,
   :disabled => true,
