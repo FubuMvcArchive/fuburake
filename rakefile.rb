@@ -1,3 +1,4 @@
+# vim: tabstop=4:softtabstop=4:shiftwidth=4:noexpandtab
 load 'lib/fuburake.rb'
 require 'rubygems/package_task'
 
@@ -17,14 +18,17 @@ solution = FubuRake::Solution.new do |sln|
 	
 	sln.precompile = [:fake]
 	
-	# TODO -- add this later:  , :include_in_ci => true
-	sln.export_docs({
-		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
-		:nested => true
-	})
+	if (!Platform.is_nix)
+		# TODO -- add this later:  , :include_in_ci => true
+		# TODO -- monosupport
+		sln.export_docs({
+			:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
+			:nested => true
+			})
+	end
 end
 
-solution.dump_html({})
+solution.dump_html({}) unless Platform.is_nix # TODO monosupport
 
 FubuRake::Storyteller.new({
   :path => 'src/FubuRakeTarget',

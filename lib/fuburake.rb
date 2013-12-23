@@ -9,7 +9,6 @@ require_relative 'platform'
 require_relative 'ripple'
 require_relative 'assembly_info'
 require_relative 'bottles'
-require_relative 'fubudocs'
 
 if File.exists?("VERSION.txt")
 	load "VERSION.txt"
