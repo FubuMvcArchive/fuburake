@@ -387,7 +387,7 @@ module FubuRake
 			@directory = options[:dir]
 			@prefix = options.fetch(:prefix, 'st')
 			@src = options.fetch(:source, 'src')
-			@results = options.fetch(:results, 'results.htm')
+			@results = options.fetch(:results, 'st-results/index.htm')
 			@st_path = options.fetch(:st_path, "#{@src}/packages/Storyteller2/tools")
 			@title = options.fetch(:title, 'Storyteller Specs')
 			@specs = options.fetch(:specs, 'specs')
