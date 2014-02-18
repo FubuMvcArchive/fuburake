@@ -383,8 +383,14 @@ module FubuRake
 			to_task 'run', 'ST.exe', "run #{to_args(options, @results)}", "Run the Storyteller tests for #{@directory}"
 			to_task 'specs', 'ST.exe', "specs #{to_args(options, @specs)} --title \"#{@title}\"", "dump the specs for Storyteller tests at #{@directory}"
 			
+			if @suites.length == 0
+				Dir["#{options[:path]}/Tests/*/"].each do |f|
+					@suites.push f.split('/').last
+				end
+			end
+			
 			@suites.each do |s|
-				to_task "run:#{s.downcase}", 'ST.exe', "run #{to_args(options, @results)} -w #{s}", "Run the Storyteller tests for suite #{s}"
+				to_task "run:#{s.downcase}", 'ST.exe', "run #{to_args(options, @results)} -w #{s}", "Run Storyteller suite #{s}"
 			end
 
 			if !Platform.is_nix

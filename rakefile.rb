@@ -32,6 +32,12 @@ FubuRake::Storyteller.new({
   :suites => ['Math']
 })
 
+FubuRake::Storyteller.new({
+  :path => 'src/FubuRakeTarget',
+  :compilemode => solution.compilemode,
+  :prefix => 'auto'
+})
+
 desc "Just a fake task for testing"
 task :fake do
 	puts "I'm the FAKE task running!"
