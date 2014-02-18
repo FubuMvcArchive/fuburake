@@ -35,7 +35,8 @@ module FubuRake
 		:bottles,
 		:bottles_enabled,
 		:doc_exports,
-		:compile_targets
+		:compile_targets,
+		:ripple_compilation_targets
 		
 	def initialize
 		@options = {}
@@ -166,23 +167,7 @@ module FubuRake
 	
 		end
 	
-		def add_dependency(from, to)
-			if to.kind_of?(Array)
-				to.each do |dep|
-					add_dependency from, dep
-				end
-			end
-	
-			if !Rake::Task.task_defined?(from)
-				return
-			end
-		
-			if !Rake::Task.task_defined?(to)
-				return
-			end 
-		
-			Rake::Task[from].enhance [to]
-		end
+
 	
 		def create_task(name, description)
 			task = Rake::Task.define_task name do
@@ -482,5 +467,23 @@ end
 
 def cleanFile(file)
 	File.delete file unless !File.exist?(file)
+end
+
+def add_dependency(from, to)
+	if to.kind_of?(Array)
+		to.each do |dep|
+			add_dependency from, dep
+		end
+	end
+
+	if !Rake::Task.task_defined?(from)
+		return
+	end
+
+	if !Rake::Task.task_defined?(to)
+		return
+	end 
+
+	Rake::Task[from].enhance [to]
 end
 
