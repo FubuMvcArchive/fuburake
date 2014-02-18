@@ -82,7 +82,7 @@ The options for the <code>FubuRake::Storyteller</code> declaration are:
 	</tr>
 	<tr>
 	  <td>:suites</td>
-	  <td>An array of suite names that you'd like to have a separate task for running one suite at a time.</td>
+	  <td>An array of suite names that you'd like to have a separate task for running one suite at a time. If you do not specify the suite names explicitly, FubuRake will infer the suite names from the child directories under /Tests in the Storyteller project directory.</td>
 	</tr>
 	<tr>
 	  <td>:profile</td>

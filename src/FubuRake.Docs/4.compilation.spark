@@ -56,8 +56,14 @@ If you need to chain other custom tasks as dependencies to the <code>:default</c
   <Snippet name="precompile" />
 </Section>
 
-<Section title="MSBuildRunner">
+<Section title="Tasks for Compilation Targets" id="targets">
+If you need to compile a project under multiple targets within your build script, you can direct FubuRake to create additional tasks with the name "compile:[target]".
 
+Use the <code>compile_targets</code> property to add the additional profiles:
+
+<Snippet name="more-compile-steps" />
+
+By default, FubuRake will create tasks for <code>compile:debug</code> and <code>compile:release</code>.
 
 </Section>
   

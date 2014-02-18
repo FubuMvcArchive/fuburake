@@ -227,3 +227,9 @@ FubuRake::Storyteller.new({
   :suites => ['Math']
 })
 # ENDSAMPLE
+
+# SAMPLE: more-compile-steps
+solution = FubuRake::Solution.new do |sln|
+	sln.compile_targets = ['Debug', 'Release', 'NET45WP8']
+end
+# ENDSAMPLE
