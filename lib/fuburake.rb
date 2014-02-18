@@ -34,12 +34,14 @@ module FubuRake
 		:compilations,
 		:bottles,
 		:bottles_enabled,
-		:doc_exports
+		:doc_exports,
+		:compile_targets
 		
 	def initialize
 		@options = {}
 		@bottles = []
 		@bottles_enabled = true
+		@compile_targets = ['Debug', 'Release']
 	
 		solutions = Dir.glob('**/*.sln')
 		if solutions.count == 1

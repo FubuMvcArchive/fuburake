@@ -17,8 +17,26 @@ module FubuRake
 			end
 			openTask.add_description "Open solution #{tasks.compile[:solutionfile]}"
 
+			tasks.compile_targets.each do |m|
+				create_mode_task m, tasks, options
+			end
+			
 			return compileTask
 		end
+		
+		def self.create_mode_task(mode, tasks, options)
+			compile_options = options.merge(tasks.compile)
+			compile_options[:compilemode] = mode
+			
+			task = Rake::Task.define_task "compile:#{mode.downcase}" do
+				MSBuildRunner.compile compile_options
+			end
+			
+			task.enhance(tasks.precompile)
+			task.add_description "Compiles the solution in #{mode} mode"
+		end
+		
+		
 	end
   
 	class CompileTarget
