@@ -434,6 +434,10 @@ module FubuRake
 			if (options[:profile] != nil)
 				args += " --profile #{options[:profile]}"
 			end
+
+			if (options[:timeout] != nil)
+				args += " --timeout #{options[:timeout]}"
+			end
 		
 			return args
 		end
