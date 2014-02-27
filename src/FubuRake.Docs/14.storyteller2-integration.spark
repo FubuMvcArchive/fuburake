@@ -92,6 +92,10 @@ The options for the <code>FubuRake::Storyteller</code> declaration are:
 		<td>:workspace</td>
 		<td>Optionally limits the test selection to a single root suite of the Storyteller project.  The default is empty.</td>
 	</tr>
+	<tr>
+		<td>:timeout</td>
+		<td>Optionally limits the timeout in seconds for the current test run</td>
+	</tr>
   </tbody>
 </table>
 
