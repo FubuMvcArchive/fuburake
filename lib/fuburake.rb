@@ -101,7 +101,9 @@ module FubuRake
 				:asm_version => asm_version,
 				:tc_build_number => tc_build_number,
 				:build_revision => build_revision,
-				:source => 'src'}.merge(options)
+				:source => 'src',
+				:package => ENV['package'].nil? ? true : ENV['package'].to_bool
+			}.merge(options)
 			# ENDSAMPLE
 		
 			@compilemode = @options[:compilemode]
@@ -128,7 +130,10 @@ module FubuRake
 			Rake::Task[:default].enhance tasks.defaults
 			Rake::Task[:ci].enhance tasks.ci_steps
 			add_dependency :ci, tasks.ci_steps
-			add_dependency :ci, ["ripple:history", "ripple:package"]
+			
+
+			add_dependency :ci, ["ripple:history"]
+			add_dependency :ci, ["ripple:package"] if @options[:package]
 
 			tasks.compilations ||= []
 			tasks.compilations.each do |c|
@@ -495,5 +500,13 @@ def add_dependency(from, to)
 	end 
 
 	Rake::Task[from].enhance [to]
+end
+
+class String
+  def to_bool
+    return true   if self == true   || self =~ (/(true|t|yes|y|1)$/i)
+    return false  if self == false  || self.empty? || self =~ (/(false|f|no|n|0)$/i)
+    raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
+  end
 end
 
