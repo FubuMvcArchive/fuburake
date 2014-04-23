@@ -16,11 +16,7 @@ solution = FubuRake::Solution.new do |sln|
 	sln.compile_step :other_compile, 'src/FubuRake.sln'
 	
 	sln.precompile = [:fake]
-	
-	sln.options[:nuget_publish_folder] = 'nupkgs'
-	sln.options[:nuget_publish_url] = 'https://www.myget.org/F/fubumvc-edge/'
-	
-	
+
 	# TODO -- add this later:  , :include_in_ci => true
 	sln.export_docs({
 		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
