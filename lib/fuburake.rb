@@ -102,7 +102,10 @@ module FubuRake
 				:tc_build_number => tc_build_number,
 				:build_revision => build_revision,
 				:source => 'src',
-				:nuget_publish_folder => 'artifacts'}.merge(options)
+				:nuget_publish_folder => 'artifacts',
+				:nuget_publish_url => nil,
+				:nuget_api_key => ENV['api_key']
+				}.merge(options)
 			# ENDSAMPLE
 		
 			@compilemode = @options[:compilemode]

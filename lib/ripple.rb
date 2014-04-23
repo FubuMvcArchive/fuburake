@@ -33,6 +33,22 @@ module FubuRake
 				sh "ripple local-nuget --version #{options[:build_number]} --destination #{options[:nuget_publish_folder]}"
 			end
 			packageTask.add_description "packages the nuget files from the nuspec files in packaging/nuget and publishes to /#{options[:nuget_publish_folder]}"
+			packageTask.enhance [:compile]
+		
+			if !options[:nuget_publish_url].nil?
+				cmd = "ripple batch-publish #{options[:nuget_publish_folder]} --server #{options[:nuget_publish_url]}"
+				if !options[:nuget_api_key].nil?
+					cmd += " --api-key " + options[:nuget_api_key]
+				end
+			
+				publishTask = Rake::Task.define_task 'ripple:publish' do
+					sh cmd
+				end
+				publishTask.add_description "publishes the built nupkg files"
+				publishTask.enhance ['ripple:package']
+				
+				add_dependency :ci, 'ripple:publish'
+			end
 		end
 	end
 end

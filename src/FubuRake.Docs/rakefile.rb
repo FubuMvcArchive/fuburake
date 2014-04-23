@@ -47,6 +47,14 @@ end
 # ENDSAMPLE
 
 
+# SAMPLE: publishing-nugets
+@solution = FubuRake::Solution.new do |sln|
+	# The presence of this option will create a 'ripple:publish'
+	# task that is part of the :ci task
+	sln.options[:nuget_publish_url] = 'https://www.myget.org/F/fubumvc-edge/'
+end
+
+
 # SAMPLE: using-options-later
 @solution = FubuRake::Solution.new do |sln|
 	# Configure your rake script here...

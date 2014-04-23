@@ -37,8 +37,28 @@ By enabling ripple, you add these tasks to your rake script:
   </tbody>
 </table>
 
+<Section title="Configuring the Artifacts Directory" id="artifacts">
+
 If necessary, you can control the directory that ripple publishes *.nupkg files with this option:
 
 <Snippet name="configure-ripple-output" />
 
 The default is "artifacts."
+
+</Section>
+
+<Section title="Publishing to a Nuget Feed" id="publishing">
+
+To publish nugets directly from a continuous integration build to a Nuget server, you can use these options:
+
+<Snippet name="publishing-nugets" />
+
+There is also an optional `:nuget_api_key` option you can use to specify the Nuget API key for the remote feed, but it's more likely that 
+you'd want to either store the API key in an environent variable on the build server
+or pass the API key as a command line variable to Rake like:
+
+<pre>
+rake ci config=Release api_key=YOURKEY
+</pre>
+
+</Section>
