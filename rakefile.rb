@@ -17,12 +17,16 @@ solution = FubuRake::Solution.new do |sln|
 	
 	sln.precompile = [:fake]
 	
+	#sln.options[:nuget_publish_folder] = 'nupkgs'
+	
 	# TODO -- add this later:  , :include_in_ci => true
 	sln.export_docs({
 		:repository => 'git@github.com:DarthFubuMVC/fuburake.git', 
 		:nested => true
 	})
 end
+
+
 
 solution.dump_html({})
 

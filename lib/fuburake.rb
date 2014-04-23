@@ -101,7 +101,8 @@ module FubuRake
 				:asm_version => asm_version,
 				:tc_build_number => tc_build_number,
 				:build_revision => build_revision,
-				:source => 'src'}.merge(options)
+				:source => 'src',
+				:nuget_publish_folder => 'artifacts'}.merge(options)
 			# ENDSAMPLE
 		
 			@compilemode = @options[:compilemode]

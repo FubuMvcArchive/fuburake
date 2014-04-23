@@ -22,6 +22,12 @@ solution = FubuRake::Solution.new do |sln|
 end
 # ENDSAMPLE
 
+# SAMPLE: configure-ripple-output
+solution = FubuRake::Solution.new do |sln|
+	sln.options[:nuget_publish_folder] = 'nupkgs'
+end
+# ENDSAMPLE
+
 # SAMPLE: enable-fubudocs
 solution = FubuRake::Solution.new do |sln|
 	sln.fubudocs_enabled = true

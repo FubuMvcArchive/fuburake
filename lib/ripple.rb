@@ -6,7 +6,7 @@ module FubuRake
 				return
 			end
 
-			tasks.clean << 'artifacts'
+			tasks.clean << options[:nuget_publish_folder]
 
 			restoreTask = Rake::Task.define_task 'ripple:restore' do
 				puts 'Restoring all the nuget package files'
@@ -30,9 +30,9 @@ module FubuRake
 			historyTask.add_description "creates a history file for nuget dependencies"
 
 			packageTask = Rake::Task.define_task 'ripple:package' do
-				sh "ripple local-nuget --version #{options[:build_number]} --destination artifacts"
+				sh "ripple local-nuget --version #{options[:build_number]} --destination #{options[:nuget_publish_folder]}"
 			end
-			packageTask.add_description "packages the nuget files from the nuspec files in packaging/nuget and publishes to /artifacts"
+			packageTask.add_description "packages the nuget files from the nuspec files in packaging/nuget and publishes to /#{options[:nuget_publish_folder]}"
 		end
 	end
 end

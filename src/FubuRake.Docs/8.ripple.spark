@@ -36,3 +36,9 @@ By enabling ripple, you add these tasks to your rake script:
     </tr>
   </tbody>
 </table>
+
+If necessary, you can control the directory that ripple publishes *.nupkg files with this option:
+
+<Snippet name="configure-ripple-output" />
+
+The default is "artifacts."
