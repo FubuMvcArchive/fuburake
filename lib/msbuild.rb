@@ -64,7 +64,8 @@ class MSBuildRunner
 		attributes[:projFile] = solutionFile
 		attributes[:properties] ||= []
 		attributes[:properties] << "Configuration=#{compileTarget}"
-		attributes[:extraSwitches] = ["v:m", "t:rebuild", "nr:False"]
+		attributes[:extraSwitches] = ["v:m", "t:rebuild"]
+		attributes[:extraSwitches] << "nr:False" unless Platform.is_nix
 		attributes[:extraSwitches] << "maxcpucount:2" unless Platform.is_nix
 
 		self.runProjFile(attributes);
